@@ -1,0 +1,16 @@
+$theme-colors: (
+        "primary": #b8f24c,
+        "secondary": #60614e,
+        "tertiary": #67c258,
+        "light": #dbd7c3,
+        "dark": #4a3a2f,
+        "black": #000
+);
+$body-bg: #000;
+$body-color: map-get($theme-colors, light);
+$enable-rounded: false;
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+$fa-font-path: "../font";
+$text-muted: darken(map-get($theme-colors, light), 30%);
