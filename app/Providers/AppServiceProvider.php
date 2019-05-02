@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         FormBuilder::component('myText', 'components.form.text', ['name', 'value' => null, 'attributes' => []]);
+        FormBuilder::component('mySelect', 'components.form.select', ['name', 'options' => [], 'value' => null, 'attributes' => []]);
         FormBuilder::component('myFile', 'components.form.file', ['name', 'attributes' => []]);
         FormBuilder::component('myTextarea', 'components.form.textarea', ['name', 'value' => null, 'attributes' => []]);
         FormBuilder::component('myPassword', 'components.form.text', ['name', 'attributes' => [

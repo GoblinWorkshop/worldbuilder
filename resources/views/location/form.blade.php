@@ -11,6 +11,7 @@
                 {!! Form::open(['url' => Route('locations.store')]) !!}
             @endif
             {{ Form::myText('name') }}
+            {{ Form::mySelect('parent_id', $parents, null, ['placeholder' => __('Select location...')]) }}
             {{ Form::myFile('filename') }}
             {{ Form::mySubmit(__('Save')) }}
             {!! Form::close() !!}

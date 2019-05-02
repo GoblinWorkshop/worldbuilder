@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class LocationController extends Controller
@@ -37,8 +38,12 @@ class LocationController extends Controller
     public function create()
     {
         $location = new Location();
+        $parents = DB::table('locations')
+            ->where('user_id', Auth::id())
+            ->pluck('name', 'id');
         return view('location.form', [
-            'location' => $location
+            'location' => $location,
+            'parents' => $parents
         ]);
     }
 
@@ -52,6 +57,7 @@ class LocationController extends Controller
     {
         $location = new Location();
         $location->name = $request->name;
+        $location->parent_id = $request->parent_id;
         if (!empty($request->file('filename'))) {
             $location->filename = $request->file('filename')->store('public/locations');
         }
@@ -89,8 +95,17 @@ class LocationController extends Controller
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
+        $parents = DB::table('locations')
+            ->where('user_id', Auth::id())
+            ->where('id', '!=', $id)
+            ->where(function ($query) use ($id) {
+                $query->where('parent_id', '!=', $id)
+                    ->orWhereNull('parent_id');
+            })
+            ->pluck('name', 'id');
         return view('location.form', [
-            'location' => $location
+            'location' => $location,
+            'parents' => $parents
         ]);
     }
 
@@ -108,6 +123,7 @@ class LocationController extends Controller
             ->where('user_id', Auth::id())
             ->first();
         $location->name = $request->name;
+        $location->parent_id = $request->parent_id;
         if (!empty($request->file('filename'))) {
             if ($location->filename !== '') {
                 Storage::delete($location->filename);
