@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -103,6 +104,9 @@ class ArticleController extends Controller
             ->first();
         $article->name = $request->name;
         if(!empty($request->file('filename'))) {
+            if ($article->filename !== '') {
+                Storage::delete($article->filename);
+            }
             $article->filename = $request->file('filename')->store('public/articles');
         }
         $article->save();
