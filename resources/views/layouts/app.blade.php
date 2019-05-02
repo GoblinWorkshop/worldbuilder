@@ -10,6 +10,7 @@
 </head>
 <body>
 @yield('nav', View::make('nav.app'))
+@yield('breadcrumbs')
 <div id="app" class="pt-4">
     <div class="container-fluid">
         <div class="row">

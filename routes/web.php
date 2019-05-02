@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 /**
  * Website routes
@@ -22,9 +22,15 @@ Route::get('/features', function () {
     return view('features');
 })
     ->name('features');
+
+// login / register
 Auth::routes();
 
 /**
  * Logged users
  */
+Route::get('/dashboard', function() {
+    return 'Create dashboard';
+})->name('dashboard');
 Route::resource('articles', 'ArticleController');
+Route::resource('locations', 'LocationController');

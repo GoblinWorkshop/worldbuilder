@@ -11,6 +11,7 @@
 <body>
 <div id="app">
     @yield('nav', View::make('nav.site'))
+    @yield('breadcrumbs')
 
     <main class="py-4">
         @yield('content')

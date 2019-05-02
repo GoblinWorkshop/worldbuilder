@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('breadcrumbs', Breadcrumbs::render('articles.index'))
 @section('sidebar')
     <a href="{{url('/articles/create')}}" class="btn btn-secondary">New</a><br />
 @endsection

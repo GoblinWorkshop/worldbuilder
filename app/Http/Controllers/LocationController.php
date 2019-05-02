@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleController extends Controller
+class LocationController extends Controller
 {
 
     public function __construct()
@@ -22,10 +22,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all()
+        $locations = Location::all()
             ->where('user_id', Auth::id());
-        return view('article.index', [
-            'articles' => $articles
+        return view('location.index', [
+            'locations' => $locations
         ]);
     }
 
@@ -36,90 +36,92 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $article = new Article();
-        return view('article.form', [
-            'article' => $article
+        $location = new Location();
+        return view('location.form', [
+            'location' => $location
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $article = new Article();
-        $article->name = $request->name;
-        if(!empty($request->file('filename'))) {
-            $article->filename = $request->file('filename')->store('public/articles');
+        $location = new Location();
+        $location->name = $request->name;
+        if (!empty($request->file('filename'))) {
+            $location->filename = $request->file('filename')->store('public/locations');
         }
-        $article->user_id = Auth::id();
-        $article->save();
-        return redirect('/articles');
+        $location->user_id = Auth::id();
+        $location->save();
+        return redirect('/locations');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $article = Article::find($id)
-            ->where('id',$id) // @todo Find out why....
+        $location = Location::find($id)
+            ->where('id', $id)// @todo Find out why....
             ->where('user_id', Auth::id())
-        ->first();
-        return view('article.show', [
-            'article' => $article
+            ->first();
+        return view('location.show', [
+            'location' => $location
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $article = Article::find($id)
+        $location = Location::find($id)
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
-        return view('article.form', compact('article'));
+        return view('location.form', [
+            'location' => $location
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $article = Article::find($id)
+        $location = Location::find($id)
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
-        $article->name = $request->name;
-        if(!empty($request->file('filename'))) {
-            if ($article->filename !== '') {
-                Storage::delete($article->filename);
+        $location->name = $request->name;
+        if (!empty($request->file('filename'))) {
+            if ($location->filename !== '') {
+                Storage::delete($location->filename);
             }
-            $article->filename = $request->file('filename')->store('public/articles');
+            $location->filename = $request->file('filename')->store('public/locations');
         }
-        $article->save();
-        return redirect('/articles');
+        $location->save();
+        return redirect('/locations');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
