@@ -22,8 +22,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all()
-            ->where('user_id', Auth::id());
+        $articles = Article::where('user_id', Auth::id())
+            ->get();
         return view('article.index', [
             'articles' => $articles
         ]);
@@ -45,14 +45,14 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $article = new Article();
         $article->name = $request->name;
-        if(!empty($request->file('filename'))) {
+        if (!empty($request->file('filename'))) {
             $article->filename = $request->file('filename')->store('public/articles');
         }
         $article->user_id = Auth::id();
@@ -63,15 +63,14 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $article = Article::find($id)
-            ->where('id',$id) // @todo Find out why....
+        $article = Article::where('id', $id)
             ->where('user_id', Auth::id())
-        ->first();
+            ->first();
         return view('article.show', [
             'article' => $article
         ]);
@@ -80,13 +79,12 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $article = Article::find($id)
-            ->where('id', $id)
+        $article = Article::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
         return view('article.form', compact('article'));
@@ -95,18 +93,17 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $article = Article::find($id)
-            ->where('id', $id)
+        $article = Article::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
         $article->name = $request->name;
-        if(!empty($request->file('filename'))) {
+        if (!empty($request->file('filename'))) {
             if ($article->filename !== '') {
                 Storage::delete($article->filename);
             }
@@ -119,7 +116,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
