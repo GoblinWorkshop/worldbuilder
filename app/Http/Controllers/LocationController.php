@@ -23,8 +23,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all()
-            ->where('user_id', Auth::id());
+        $locations = Location::where('user_id', Auth::id())
+            ->get();
         return view('location.index', [
             'locations' => $locations
         ]);
@@ -38,8 +38,7 @@ class LocationController extends Controller
     public function create()
     {
         $location = new Location();
-        $parents = DB::table('locations')
-            ->where('user_id', Auth::id())
+        $parents = Location::where('user_id', Auth::id())
             ->pluck('name', 'id');
         return view('location.form', [
             'location' => $location,
@@ -74,8 +73,7 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        $location = Location::find($id)
-            ->where('id', $id)// @todo Find out why....
+        $location = Location::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
         return view('location.show', [
@@ -91,12 +89,10 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        $location = Location::find($id)
-            ->where('id', $id)
+        $location = Location::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
-        $parents = DB::table('locations')
-            ->where('user_id', Auth::id())
+        $parents = Location::where('user_id', Auth::id())
             ->where('id', '!=', $id)
             ->where(function ($query) use ($id) {
                 $query->where('parent_id', '!=', $id)
@@ -118,8 +114,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $location = Location::find($id)
-            ->where('id', $id)
+        $location = Location::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
         $location->name = $request->name;
