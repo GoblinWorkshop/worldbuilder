@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Location;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,8 +23,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::where('user_id', Auth::id())
-            ->get();
+        $locations = Location::get();
         return view('location.index', [
             'locations' => $locations
         ]);
@@ -38,8 +37,7 @@ class LocationController extends Controller
     public function create()
     {
         $location = new Location();
-        $parents = Location::where('user_id', Auth::id())
-            ->pluck('name', 'id');
+        $parents = Location::pluck('name', 'id');
         return view('location.form', [
             'location' => $location,
             'parents' => $parents
@@ -60,7 +58,6 @@ class LocationController extends Controller
         if (!empty($request->file('filename'))) {
             $location->filename = $request->file('filename')->store('public/locations');
         }
-        $location->user_id = Auth::id();
         $location->save();
         return redirect('/locations');
     }
@@ -74,7 +71,6 @@ class LocationController extends Controller
     public function show($id)
     {
         $location = Location::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
         return view('location.show', [
             'location' => $location
@@ -90,10 +86,8 @@ class LocationController extends Controller
     public function edit($id)
     {
         $location = Location::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
-        $parents = Location::where('user_id', Auth::id())
-            ->where('id', '!=', $id)
+        $parents = Location::where('id', '!=', $id)
             ->where(function ($query) use ($id) {
                 $query->where('parent_id', '!=', $id)
                     ->orWhereNull('parent_id');
@@ -115,7 +109,6 @@ class LocationController extends Controller
     public function update(Request $request, $id)
     {
         $location = Location::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
         $location->name = $request->name;
         $location->parent_id = $request->parent_id;

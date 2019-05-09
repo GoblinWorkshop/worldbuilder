@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -22,8 +21,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::where('user_id', Auth::id())
-            ->get();
+        $articles = Article::get();
         return view('article.index', [
             'articles' => $articles
         ]);
@@ -55,7 +53,6 @@ class ArticleController extends Controller
         if (!empty($request->file('filename'))) {
             $article->filename = $request->file('filename')->store('public/articles');
         }
-        $article->user_id = Auth::id();
         $article->save();
         return redirect('/articles');
     }
@@ -69,7 +66,6 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
         return view('article.show', [
             'article' => $article
@@ -85,7 +81,6 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
         return view('article.form', compact('article'));
     }
@@ -100,7 +95,6 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $article = Article::where('id', $id)
-            ->where('user_id', Auth::id())
             ->first();
         $article->name = $request->name;
         if (!empty($request->file('filename'))) {

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Article;
+use App\Location;
+use App\Observers\Auth;
+use App\Scopes\AuthScope;
 use Collective\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -34,5 +38,13 @@ class AppServiceProvider extends ServiceProvider
             'type' => 'password'
         ]]);
         FormBuilder::component('mySubmit', 'components.form.submit', ['value' => __('Save'), 'attributes' => []]);
+
+
+        // Custom auth for managing entities
+        Location::observe(Auth::class);
+        Article::observe(Auth::class);
+
+        Location::addGlobalScope(new AuthScope);
+        Article::addGlobalScope(new AuthScope);
     }
 }
