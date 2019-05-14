@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Location;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -38,9 +39,11 @@ class LocationController extends Controller
     {
         $location = new Location();
         $parents = Location::pluck('name', 'id');
+        $articles = Article::pluck('name', 'id');
         return view('location.form', [
             'location' => $location,
-            'parents' => $parents
+            'parents' => $parents,
+            'articles' => $articles
         ]);
     }
 
@@ -55,6 +58,7 @@ class LocationController extends Controller
         $location = new Location();
         $location->name = $request->name;
         $location->parent_id = $request->parent_id;
+        $location->article_id = $request->article_id;
         if (!empty($request->file('filename'))) {
             $location->filename = $request->file('filename')->store('public/locations');
         }
@@ -93,9 +97,11 @@ class LocationController extends Controller
                     ->orWhereNull('parent_id');
             })
             ->pluck('name', 'id');
+        $articles = Article::pluck('name', 'id');
         return view('location.form', [
             'location' => $location,
-            'parents' => $parents
+            'parents' => $parents,
+            'articles' => $articles
         ]);
     }
 

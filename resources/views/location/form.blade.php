@@ -12,6 +12,7 @@
             @endif
             {{ Form::myText('name') }}
             {{ Form::mySelect('parent_id', $parents, null, ['placeholder' => __('Select location...')]) }}
+            {{ Form::mySelect('article_id', $articles, null, ['placeholder' => __('Select article...')]) }}
             {{ Form::myFile('filename') }}
             {{ Form::mySubmit(__('Save')) }}
             {!! Form::close() !!}

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Scopes\AuthScope;
+use App\Traits\ArticleTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +12,7 @@ class Location extends Model
 {
     use SoftDeletes;
     use NodeTrait;
+    use ArticleTrait;
 
     protected $guarded = [
         'id', 'user_id', 'filename'
