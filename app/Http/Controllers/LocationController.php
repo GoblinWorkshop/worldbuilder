@@ -118,6 +118,7 @@ class LocationController extends Controller
             ->first();
         $location->name = $request->name;
         $location->parent_id = $request->parent_id;
+        $location->article_id = $request->article_id;
         if (!empty($request->file('filename'))) {
             if ($location->filename !== '') {
                 Storage::delete($location->filename);

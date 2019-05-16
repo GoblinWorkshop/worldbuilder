@@ -43,6 +43,9 @@ Breadcrumbs::for('locations.index', function ($trail) {
 });
 Breadcrumbs::for('locations.show', function ($trail, $item) {
     $trail->parent('locations.index');
+    foreach ($item->ancestors()->get() as $ancestor) {
+        $trail->push($ancestor->name, route('locations.show', $ancestor->id));
+    }
     $trail->push($item->name, route('locations.show', $item->id));
 });
 Breadcrumbs::for('locations.form', function ($trail, $item) {
