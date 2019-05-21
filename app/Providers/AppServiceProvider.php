@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Article;
+use App\Asset;
 use App\Location;
 use App\Observers\Auth;
 use App\Scopes\AuthScope;
@@ -39,12 +40,20 @@ class AppServiceProvider extends ServiceProvider
         ]]);
         FormBuilder::component('mySubmit', 'components.form.submit', ['value' => __('Save'), 'attributes' => []]);
 
+        $this->setAuthScopes();
+    }
 
+    /**
+     * Set auth checks and callbacks on the Table objects.
+     */
+    private function setAuthScopes() {
         // Custom auth for managing entities
         Location::observe(Auth::class);
         Article::observe(Auth::class);
+        Asset::observe(Auth::class);
 
         Location::addGlobalScope(new AuthScope);
         Article::addGlobalScope(new AuthScope);
+        Asset::addGlobalScope(new AuthScope);
     }
 }

@@ -7,6 +7,7 @@
 @section('content')
 
 {{$article->name}}
+{!!$article->content!!}
 {!!$article->image!!}
 
 

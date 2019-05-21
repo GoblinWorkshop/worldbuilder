@@ -49,7 +49,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $article = new Article();
-        $article->name = $request->name;
+        $article->name = $request->input('name');
+        $article->content = $request->input('content');
         if (!empty($request->file('filename'))) {
             $article->filename = $request->file('filename')->store('public/articles');
         }
@@ -96,7 +97,8 @@ class ArticleController extends Controller
     {
         $article = Article::where('id', $id)
             ->first();
-        $article->name = $request->name;
+        $article->name = $request->input('name');
+        $article->content = $request->input('content');
         if (!empty($request->file('filename'))) {
             if ($article->filename !== '') {
                 Storage::delete($article->filename);

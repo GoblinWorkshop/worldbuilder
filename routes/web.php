@@ -34,3 +34,4 @@ Route::get('/dashboard', function() {
 })->name('dashboard');
 Route::resource('articles', 'ArticleController');
 Route::resource('locations', 'LocationController');
+Route::resource('assets', 'AssetController');

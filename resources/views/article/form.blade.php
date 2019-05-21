@@ -11,6 +11,7 @@
                 {!! Form::open(['url' => Route('articles.store')]) !!}
             @endif
             {{ Form::myText('name') }}
+            {{ Form::myTextarea('content', null, ['editor' => 'rich']) }}
             {{ Form::myFile('filename') }}
             {{ Form::mySubmit(__('Save')) }}
             {!! Form::close() !!}
