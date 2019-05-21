@@ -36839,15 +36839,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_CkeditorUpload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/CkeditorUpload */ "./resources/js/components/CkeditorUpload.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -36855,132 +36852,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-var MyUploadAdapter =
-/*#__PURE__*/
-function () {
-  function MyUploadAdapter(loader) {
-    _classCallCheck(this, MyUploadAdapter);
-
-    // The file loader instance to use during the upload.
-    this.loader = loader;
-  } // Starts the upload process.
-
-
-  _createClass(MyUploadAdapter, [{
-    key: "upload",
-    value: function upload() {
-      var _this = this;
-
-      return this.loader.file.then(function (file) {
-        return new Promise(function (resolve, reject) {
-          _this._initRequest();
-
-          _this._initListeners(resolve, reject, file);
-
-          _this._sendRequest(file);
-        });
-      });
-    } // Aborts the upload process.
-
-  }, {
-    key: "abort",
-    value: function abort() {
-      if (this.xhr) {
-        this.xhr.abort();
-      }
-    } // Initializes the XMLHttpRequest object using the URL passed to the constructor.
-
-  }, {
-    key: "_initRequest",
-    value: function _initRequest() {
-      var xhr = this.xhr = new XMLHttpRequest(); // Note that your request may look different. It is up to you and your editor
-      // integration to choose the right communication channel. This example uses
-      // a POST request with JSON as a data structure but your configuration
-      // could be different.
-
-      xhr.open('POST', '/assets', true);
-      xhr.responseType = 'json'; // xhr.processData = false;
-      // xhr.contentType = false;
-    } // Initializes XMLHttpRequest listeners.
-
-  }, {
-    key: "_initListeners",
-    value: function _initListeners(resolve, reject, file) {
-      var xhr = this.xhr;
-      var loader = this.loader;
-      var genericErrorText = "Couldn't upload file: ".concat(file.name, ".");
-      xhr.addEventListener('error', function () {
-        return reject(genericErrorText);
-      });
-      xhr.addEventListener('abort', function () {
-        return reject();
-      });
-      xhr.addEventListener('load', function () {
-        var response = xhr.response;
-        console.log(response); // This example assumes the XHR server's "response" object will come with
-        // an "error" which has its own "message" that can be passed to reject()
-        // in the upload promise.
-        //
-        // Your integration may handle upload errors in a different way so make sure
-        // it is done properly. The reject() function must be called when the upload fails.
-
-        if (!response || response.success === false) {
-          return reject(response && response.message ? response.message : genericErrorText);
-        } // If the upload is successful, resolve the upload promise with an object containing
-        // at least the "default" URL, pointing to the image on the server.
-        // This URL will be used to display the image in the content. Learn more in the
-        // UploadAdapter#upload documentation.
-
-
-        resolve({
-          "default": response.data.url
-        });
-      }); // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
-      // properties which are used e.g. to display the upload progress bar in the editor
-      // user interface.
-
-      if (xhr.upload) {
-        xhr.upload.addEventListener('progress', function (evt) {
-          if (evt.lengthComputable) {
-            loader.uploadTotal = evt.total;
-            loader.uploaded = evt.loaded;
-          }
-        });
-      }
-    } // Prepares the data and sends the request.
-
-  }, {
-    key: "_sendRequest",
-    value: function _sendRequest(file) {
-      // Prepare the form data.
-      var data = new FormData();
-      data.append('filename', file); // Important note: This is the right place to implement security mechanisms
-      // like authentication and CSRF protection. For instance, you can use
-      // XMLHttpRequest.setRequestHeader() to set the request headers containing
-      // the CSRF token generated earlier by your application.
-
-      this.xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content')); // Send the request.
-
-      this.xhr.send(data);
-    }
-  }]);
-
-  return MyUploadAdapter;
-}(); // ...
 
 
 function MyCustomUploadAdapterPlugin(editor) {
   editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
     // Configure the URL to the upload script in your back-end here!
-    return new MyUploadAdapter(loader);
+    return new _components_CkeditorUpload__WEBPACK_IMPORTED_MODULE_0__["default"](loader);
   };
 }
 
 ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
-  extraPlugins: [MyCustomUploadAdapterPlugin] // ckfinder: {
-  //     uploadUrl: '/assets'
-  // }
-
+  extraPlugins: [MyCustomUploadAdapterPlugin]
 });
 
 /***/ }),
@@ -37042,6 +36924,139 @@ window.ClassicEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/CkeditorUpload.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/CkeditorUpload.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+// Found at: https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html
+var _default =
+/*#__PURE__*/
+function () {
+  function _default(loader) {
+    _classCallCheck(this, _default);
+
+    // The file loader instance to use during the upload.
+    this.loader = loader;
+  } // Starts the upload process.
+
+
+  _createClass(_default, [{
+    key: "upload",
+    value: function upload() {
+      var _this = this;
+
+      return this.loader.file.then(function (file) {
+        return new Promise(function (resolve, reject) {
+          _this._initRequest();
+
+          _this._initListeners(resolve, reject, file);
+
+          _this._sendRequest(file);
+        });
+      });
+    } // Aborts the upload process.
+
+  }, {
+    key: "abort",
+    value: function abort() {
+      if (this.xhr) {
+        this.xhr.abort();
+      }
+    } // Initializes the XMLHttpRequest object using the URL passed to the constructor.
+
+  }, {
+    key: "_initRequest",
+    value: function _initRequest() {
+      var xhr = this.xhr = new XMLHttpRequest(); // Note that your request may look different. It is up to you and your editor
+      // integration to choose the right communication channel. This example uses
+      // a POST request with JSON as a data structure but your configuration
+      // could be different.
+
+      xhr.open('POST', '/assets', true);
+      xhr.responseType = 'json'; // xhr.processData = false;
+      // xhr.contentType = false;
+    } // Initializes XMLHttpRequest listeners.
+
+  }, {
+    key: "_initListeners",
+    value: function _initListeners(resolve, reject, file) {
+      var xhr = this.xhr;
+      var loader = this.loader;
+      var genericErrorText = "Couldn't upload file: ".concat(file.name, ".");
+      xhr.addEventListener('error', function () {
+        return reject(genericErrorText);
+      });
+      xhr.addEventListener('abort', function () {
+        return reject();
+      });
+      xhr.addEventListener('load', function () {
+        var response = xhr.response; // This example assumes the XHR server's "response" object will come with
+        // an "error" which has its own "message" that can be passed to reject()
+        // in the upload promise.
+        //
+        // Your integration may handle upload errors in a different way so make sure
+        // it is done properly. The reject() function must be called when the upload fails.
+
+        if (!response || response.success === false) {
+          return reject(response && response.message ? response.message : genericErrorText);
+        } // If the upload is successful, resolve the upload promise with an object containing
+        // at least the "default" URL, pointing to the image on the server.
+        // This URL will be used to display the image in the content. Learn more in the
+        // UploadAdapter#upload documentation.
+
+
+        resolve({
+          "default": response.data.url
+        });
+      }); // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
+      // properties which are used e.g. to display the upload progress bar in the editor
+      // user interface.
+
+      if (xhr.upload) {
+        xhr.upload.addEventListener('progress', function (evt) {
+          if (evt.lengthComputable) {
+            loader.uploadTotal = evt.total;
+            loader.uploaded = evt.loaded;
+          }
+        });
+      }
+    } // Prepares the data and sends the request.
+
+  }, {
+    key: "_sendRequest",
+    value: function _sendRequest(file) {
+      // Prepare the form data.
+      var data = new FormData();
+      data.append('filename', file); // Important note: This is the right place to implement security mechanisms
+      // like authentication and CSRF protection. For instance, you can use
+      // XMLHttpRequest.setRequestHeader() to set the request headers containing
+      // the CSRF token generated earlier by your application.
+
+      this.xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content')); // Send the request.
+
+      this.xhr.send(data);
+    }
+  }]);
+
+  return _default;
+}();
+
+
 
 /***/ }),
 
