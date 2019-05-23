@@ -56,6 +56,26 @@ Breadcrumbs::for('characters.form', function ($trail, $item) {
     }
 });
 
+// App > Organisations
+Breadcrumbs::for('organisations.index', function ($trail) {
+    $trail->parent('app');
+    $trail->push('Organisations', route('organisations.index'));
+});
+Breadcrumbs::for('organisations.show', function ($trail, $item) {
+    $trail->parent('organisations.index');
+    $trail->push($item->name, route('organisations.show', $item->id));
+});
+Breadcrumbs::for('organisations.form', function ($trail, $item) {
+    if ($item->exists) {
+        $trail->parent('organisations.show', $item);
+        $trail->push(__('Edit'), route('organisations.edit', $item->id));
+    }
+    else {
+        $trail->parent('characters.index');
+        $trail->push(__('Create'), route('organisations.create'));
+    }
+});
+
 // App > Locations
 Breadcrumbs::for('locations.index', function ($trail) {
     $trail->parent('app');

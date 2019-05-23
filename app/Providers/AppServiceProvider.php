@@ -8,6 +8,7 @@ use App\Character;
 use App\Location;
 use App\Observers\ArticleObserver;
 use App\Observers\AuthObserver;
+use App\Organisation;
 use App\Scopes\AuthScope;
 use Collective\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
@@ -55,11 +56,13 @@ class AppServiceProvider extends ServiceProvider
         Asset::observe(AuthObserver::class);
         Character::observe(AuthObserver::class);
         Location::observe(AuthObserver::class);
+        Organisation::observe(AuthObserver::class);
 
         Article::addGlobalScope(new AuthScope);
         Asset::addGlobalScope(new AuthScope);
         Character::addGlobalScope(new AuthScope);
         Location::addGlobalScope(new AuthScope);
+        Organisation::addGlobalScope(new AuthScope);
     }
 
     /**
@@ -68,5 +71,6 @@ class AppServiceProvider extends ServiceProvider
     private function setArticleScopes() {
         Location::observe(ArticleObserver::class);
         Character::observe(ArticleObserver::class);
+        Organisation::observe(ArticleObserver::class);
     }
 }
