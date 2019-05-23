@@ -16,14 +16,16 @@ class Character extends Model
         'id', 'user_id', 'filename'
     ];
 
-    public function getTypesAttribute() {
+    public function getTypesAttribute()
+    {
         return [
             'npc' => __('Npc'),
             'player' => __('Player character')
         ];
     }
 
-    public function getTypeLabelAttribute() {
+    public function getTypeLabelAttribute()
+    {
         switch ($this->type) {
             case 'npc':
                 return __('Npc');
@@ -35,14 +37,30 @@ class Character extends Model
         return __('General');
     }
 
-    public function getUrlAttribute($value) {
+    public function getUrlAttribute($value)
+    {
         return Storage::url($this->attributes['filename']);
     }
 
-    public function getImageAttribute($value) {
+    public function getImageAttribute($value)
+    {
         if (empty($this->attributes['filename'])) {
             return '';
         }
-        return '<img src="'. asset($this->getUrlAttribute('url')) .'" class="img img-fluid" />';
+        return '<img src="' . asset($this->getUrlAttribute('url')) . '" class="img img-fluid" />';
+    }
+
+    public function organisations()
+    {
+        return $this->belongsToMany('App\Organisation');
+    }
+
+    public function relations() {
+        return $this->hasMany('App\Relation', 'character_1_id');
+    }
+
+    public function characters()
+    {
+        return $this->belongsToMany('App\Character', 'relation', 'character_1_id', 'character_2_id');
     }
 }

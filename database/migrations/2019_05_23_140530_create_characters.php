@@ -31,20 +31,18 @@ class CreateCharacters extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::create('characters_organisations', function (Blueprint $table) {
+        Schema::create('character_organisation', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('character_id');
             $table->bigInteger('organisation_id');
             $table->timestamps();
-            $table->softDeletes();
         });
-        Schema::create('relations', function (Blueprint $table) {
+        Schema::create('relation', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('character_1_id');
             $table->bigInteger('character_2_id');
             $table->string('type')->default('friend');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -56,8 +54,8 @@ class CreateCharacters extends Migration
     public function down()
     {
         Schema::dropIfExists('characters');
-        Schema::dropIfExists('relations');
+        Schema::dropIfExists('relation');
         Schema::dropIfExists('organisations');
-        Schema::dropIfExists('characters_organisations');
+        Schema::dropIfExists('character_organisation');
     }
 }

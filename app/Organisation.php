@@ -34,4 +34,9 @@ class Organisation extends Model
         }
         return __('General');
     }
+
+    public function characters()
+    {
+        return $this->belongsToMany('App\Character');
+    }
 }

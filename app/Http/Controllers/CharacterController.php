@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
 use App\Character;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Kalnoy\Nestedset\Collection;
 
 class CharacterController extends Controller
 {
@@ -86,8 +86,11 @@ class CharacterController extends Controller
     {
         $character = Character::where('id', $id)
             ->first();
+        $characters = Character::where('id', '!=', $id)
+            ->pluck('name', 'id');
         return view('character.form', [
-            'character' => $character
+            'character' => $character,
+            'characters' => $characters
         ]);
     }
 
@@ -111,6 +114,16 @@ class CharacterController extends Controller
             $character->filename = $request->file('filename')->store('public/characters');
         }
         $character->save();
+        foreach ($request->input('relation') as $relation) {
+            if (isset($relation['id']) && empty($relation['character_2_id'])) {
+                $character->relations()->where('id', $relation['id'])->delete();
+                continue;
+            }
+            if (empty($relation['character_2_id'])) {
+                continue;
+            }
+            $character->relations()->updateOrCreate($relation);
+        }
         return redirect('/characters');
     }
 

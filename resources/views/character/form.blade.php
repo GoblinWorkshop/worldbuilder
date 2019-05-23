@@ -12,6 +12,40 @@
             {{ Form::myText('name') }}
             {{ Form::mySelect('type', $character->types) }}
             {{ Form::myFile('filename') }}
+
+            @if( $character->exists )
+                <h3>{{ __('Relations') }}</h3>
+                <p>
+                    {{ __('Select characters with whom this character has a relation with. This can be father, mother, friend, etc.') }}
+                </p>
+                <?php
+                $index = -1; // sorry
+                ?>
+                @foreach ($character->relations as $index => $relation)
+                    {{ Form::hidden("relation[$index][id]", $relation->id) }}
+                    {{ Form::mySelect("relation[$index][character_2_id]", $characters, $relation->character_2_id, [
+                    'placeholder' => __('Select relation...'),
+                    'label' => __('Relation')
+                    ])}}
+                    {{ Form::mySelect("relation[$index][type]", $relation->types, $relation->type, [
+                    'label' => __('Type')
+                    ]) }}
+                    <hr/>
+                @endforeach
+                <?php
+                $index++;
+                ?>
+                {{ Form::mySelect("relation[$index][character_2_id]",
+                    $characters,
+                    null, [
+                    'placeholder' => __('Select relation...'),
+                    'label' => __('Relation')
+                    ])
+                }}
+                {{ Form::mySelect("relation[$index][type]", \App\Relation::$types, null, [
+                'label' => __('Type')
+                ]) }}
+            @endif
             {{ Form::mySubmit(__('Save')) }}
             {!! Form::close() !!}
         </div>
