@@ -36,6 +36,26 @@ Breadcrumbs::for('articles.form', function ($trail, $item) {
     }
 });
 
+// App > Characters
+Breadcrumbs::for('characters.index', function ($trail) {
+    $trail->parent('app');
+    $trail->push('Characters', route('characters.index'));
+});
+Breadcrumbs::for('characters.show', function ($trail, $item) {
+    $trail->parent('characters.index');
+    $trail->push($item->name, route('characters.show', $item->id));
+});
+Breadcrumbs::for('characters.form', function ($trail, $item) {
+    if ($item->exists) {
+        $trail->parent('characters.show', $item);
+        $trail->push(__('Edit'), route('characters.edit', $item->id));
+    }
+    else {
+        $trail->parent('characters.index');
+        $trail->push(__('Create'), route('characters.create'));
+    }
+});
+
 // App > Locations
 Breadcrumbs::for('locations.index', function ($trail) {
     $trail->parent('app');

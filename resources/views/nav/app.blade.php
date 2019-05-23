@@ -16,6 +16,9 @@
                 <a href="{{route('locations.index')}}" class="nav-link">Locations</a>
             </li>
             <li class="nav-item">
+                <a href="{{route('characters.index')}}" class="nav-link">Characters</a>
+            </li>
+            <li class="nav-item">
                 <a href="https://github.com/goblinworkshop/platform" class="nav-link" target="_blank"><i
                             class="fab fa-github"></i></a></li>
         </ul>

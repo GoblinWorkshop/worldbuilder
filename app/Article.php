@@ -37,7 +37,10 @@ class Article extends Model
         switch ($this->type) {
             case 'locations':
                 return __('Location');
-            break;
+                break;
+            case 'characters':
+                return __('Character');
+                break;
         }
         return __('General');
     }

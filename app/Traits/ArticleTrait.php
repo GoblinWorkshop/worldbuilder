@@ -5,12 +5,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait ArticleTrait
 {
-
-    public $foreignKey = 'article_id';
-
     /**
      * Relation to the article.
-     * @todo should be hasOne?
      *
      * @return HasOne
      */

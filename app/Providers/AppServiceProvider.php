@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Article;
 use App\Asset;
+use App\Character;
 use App\Location;
 use App\Observers\ArticleObserver;
-use App\Observers\Auth;
 use App\Observers\AuthObserver;
 use App\Scopes\AuthScope;
 use Collective\Html\FormBuilder;
@@ -51,13 +51,15 @@ class AppServiceProvider extends ServiceProvider
      */
     private function setAuthScopes() {
         // Custom auth for managing entities
-        Location::observe(AuthObserver::class);
         Article::observe(AuthObserver::class);
         Asset::observe(AuthObserver::class);
+        Character::observe(AuthObserver::class);
+        Location::observe(AuthObserver::class);
 
-        Location::addGlobalScope(new AuthScope);
         Article::addGlobalScope(new AuthScope);
         Asset::addGlobalScope(new AuthScope);
+        Character::addGlobalScope(new AuthScope);
+        Location::addGlobalScope(new AuthScope);
     }
 
     /**
@@ -65,5 +67,6 @@ class AppServiceProvider extends ServiceProvider
      */
     private function setArticleScopes() {
         Location::observe(ArticleObserver::class);
+        Character::observe(ArticleObserver::class);
     }
 }

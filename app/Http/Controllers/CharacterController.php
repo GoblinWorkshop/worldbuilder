@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Location;
+use App\Character;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class LocationController extends Controller
+class CharacterController extends Controller
 {
 
     public function __construct()
@@ -24,9 +24,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::get();
-        return view('location.index', [
-            'locations' => $locations
+        $characters = Character::get();
+        return view('character.index', [
+            'characters' => $characters
         ]);
     }
 
@@ -37,11 +37,9 @@ class LocationController extends Controller
      */
     public function create()
     {
-        $location = new Location();
-        $parents = Location::pluck('name', 'id');
-        return view('location.form', [
-            'location' => $location,
-            'parents' => $parents
+        $character = new Character();
+        return view('character.form', [
+            'character' => $character
         ]);
     }
 
@@ -53,14 +51,14 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $location = new Location();
-        $location->name = $request->name;
-        $location->parent_id = $request->parent_id;
+        $character = new Character();
+        $character->name = $request->name;
+        $character->type = $request->type;
         if (!empty($request->file('filename'))) {
-            $location->filename = $request->file('filename')->store('public/locations');
+            $character->filename = $request->file('filename')->store('public/characters');
         }
-        $location->save();
-        return redirect('/locations');
+        $character->save();
+        return redirect('/characters');
     }
 
     /**
@@ -71,10 +69,10 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        $location = Location::where('id', $id)
+        $character = Character::where('id', $id)
             ->first();
-        return view('location.show', [
-            'location' => $location
+        return view('character.show', [
+            'character' => $character
         ]);
     }
 
@@ -86,17 +84,10 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        $location = Location::where('id', $id)
+        $character = Character::where('id', $id)
             ->first();
-        $parents = Location::where('id', '!=', $id)
-            ->where(function ($query) use ($id) {
-                $query->where('parent_id', '!=', $id)
-                    ->orWhereNull('parent_id');
-            })
-            ->pluck('name', 'id');
-        return view('location.form', [
-            'location' => $location,
-            'parents' => $parents
+        return view('character.form', [
+            'character' => $character
         ]);
     }
 
@@ -109,18 +100,18 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $location = Location::where('id', $id)
+        $character = Character::where('id', $id)
             ->first();
-        $location->name = $request->name;
-        $location->parent_id = $request->parent_id;
+        $character->name = $request->name;
+        $character->type = $request->type;
         if (!empty($request->file('filename'))) {
-            if ($location->filename !== '') {
-                Storage::delete($location->filename);
+            if ($character->filename !== '') {
+                Storage::delete($character->filename);
             }
-            $location->filename = $request->file('filename')->store('public/locations');
+            $character->filename = $request->file('filename')->store('public/characters');
         }
-        $location->save();
-        return redirect('/locations');
+        $character->save();
+        return redirect('/characters');
     }
 
     /**

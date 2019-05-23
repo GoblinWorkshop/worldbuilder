@@ -33,5 +33,6 @@ Route::get('/dashboard', function() {
     return 'Create dashboard';
 })->name('dashboard');
 Route::resource('articles', 'ArticleController');
+Route::resource('characters', 'CharacterController');
 Route::resource('locations', 'LocationController');
 Route::resource('assets', 'AssetController');
