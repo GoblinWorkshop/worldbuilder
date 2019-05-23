@@ -1,7 +1,7 @@
 <?php
 namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait ArticleTrait
 {
@@ -10,12 +10,13 @@ trait ArticleTrait
 
     /**
      * Relation to the article.
+     * @todo should be hasOne?
      *
-     * @return BelongsTo
+     * @return HasOne
      */
     public function article()
     {
-        return $this->belongsTo(get_class($this), $this->foreignKey)
-            ->setModel($this);
+        return $this->hasOne('App\Article', 'foreign_id')
+            ->where('type', $this->getTable());
     }
 }

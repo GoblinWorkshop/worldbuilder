@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Article;
 use App\Asset;
 use App\Location;
+use App\Observers\ArticleObserver;
 use App\Observers\Auth;
+use App\Observers\AuthObserver;
 use App\Scopes\AuthScope;
 use Collective\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         FormBuilder::component('mySubmit', 'components.form.submit', ['value' => __('Save'), 'attributes' => []]);
 
         $this->setAuthScopes();
+        $this->setArticleScopes();
     }
 
     /**
@@ -48,12 +51,19 @@ class AppServiceProvider extends ServiceProvider
      */
     private function setAuthScopes() {
         // Custom auth for managing entities
-        Location::observe(Auth::class);
-        Article::observe(Auth::class);
-        Asset::observe(Auth::class);
+        Location::observe(AuthObserver::class);
+        Article::observe(AuthObserver::class);
+        Asset::observe(AuthObserver::class);
 
         Location::addGlobalScope(new AuthScope);
         Article::addGlobalScope(new AuthScope);
         Asset::addGlobalScope(new AuthScope);
+    }
+
+    /**
+     * Set the article scopes. This scope will automaticly add articles for the created models
+     */
+    private function setArticleScopes() {
+        Location::observe(ArticleObserver::class);
     }
 }

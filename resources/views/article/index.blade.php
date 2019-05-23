@@ -5,6 +5,8 @@
 @endsection
 @section('content')
     @foreach ($articles as $article)
-        <a href="{{route('articles.show', $article->id)}}">{{$article->name}}</a><br />
+        <a href="{{route('articles.show', $article->id)}}">{{$article->name}}</a>
+        {{$article->type_label}}
+        <br />
     @endforeach
 @endsection

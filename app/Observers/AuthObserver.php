@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-class Auth
+class AuthObserver
 {
     public function creating($model) {
         $model->user_id = auth()->id();

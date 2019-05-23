@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddArticleIdToLocationsTable extends Migration
+class AddForeignIdToArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddArticleIdToLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('locations', function (Blueprint $table) {
-            $table->bigInteger('article_id')->nullable();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->bigInteger('foreign_id')->nullable();
+            $table->string('type')->default('general');
         });
     }
 
@@ -25,8 +26,9 @@ class AddArticleIdToLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('locations', function (Blueprint $table) {
-            $table->removeColumn('article_id');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->removeColumn('foreign_id');
+            $table->removeColumn('type');
         });
     }
 }
