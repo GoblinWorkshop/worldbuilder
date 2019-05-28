@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Http\Controllers\Controller;
+use App\Organisation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -38,8 +39,11 @@ class CharacterController extends Controller
     public function create()
     {
         $character = new Character();
+        $organisations = Organisation::get()
+            ->pluck('name', 'id');
         return view('character.form', [
-            'character' => $character
+            'character' => $character,
+            'organisations' => $organisations
         ]);
     }
 
@@ -88,9 +92,12 @@ class CharacterController extends Controller
             ->first();
         $characters = Character::where('id', '!=', $id)
             ->pluck('name', 'id');
+        $organisations = Organisation::get()
+            ->pluck('name', 'id');
         return view('character.form', [
             'character' => $character,
-            'characters' => $characters
+            'characters' => $characters,
+            'organisations' => $organisations
         ]);
     }
 
@@ -124,6 +131,7 @@ class CharacterController extends Controller
             }
             $character->relations()->updateOrCreate($relation);
         }
+        $character->organisations()->sync($request->input('organisations'));
         return redirect('/characters');
     }
 

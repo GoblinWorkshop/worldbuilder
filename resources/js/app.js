@@ -8,6 +8,8 @@ require('./bootstrap');
 
 import CkeditorUpload from './components/CkeditorUpload';
 
+import select2 from 'select2';
+
 function MyCustomUploadAdapterPlugin( editor ) {
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
         // Configure the URL to the upload script in your back-end here!
@@ -17,4 +19,8 @@ function MyCustomUploadAdapterPlugin( editor ) {
 
 ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
     extraPlugins: [MyCustomUploadAdapterPlugin]
+});
+
+$(document).ready(function() {
+    $("select[data-select='select2']").select2();
 });

@@ -11,6 +11,11 @@
             @endif
             {{ Form::myText('name') }}
             {{ Form::mySelect('type', $character->types) }}
+            {{ Form::mySelect('organisations[]', $organisations, null, [
+            'label' => __('Organisations'),
+                'multiple' => 'multiple',
+                'data-select' => 'select2'
+                ]) }}
             {{ Form::myFile('filename') }}
 
             @if( $character->exists )
