@@ -16,3 +16,17 @@ $fa-font-path: "../font";
 $text-muted: darken(map-get($theme-colors, light), 30%);
 $breadcrumb-bg: transparent;
 $breadcrumb-padding-y:              .25rem;
+
+/**
+Pagination
+ */
+$pagination-color: $body-color;
+$pagination-bg: map-get($theme-colors, dark);
+$pagination-border-color: map-get($theme-colors, dark);
+$pagination-hover-color: lighten($pagination-color, 30%);
+$pagination-hover-bg: lighten($pagination-bg, 30%);
+$pagination-hover-border-color: lighten($pagination-border-color, 30%);
+
+$pagination-active-color: $pagination-hover-color;
+$pagination-active-bg: $pagination-hover-bg;
+$pagination-active-border-color: $pagination-hover-border-color;

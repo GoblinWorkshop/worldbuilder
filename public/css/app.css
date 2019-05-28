@@ -4,6 +4,10 @@
 For logged in users in their account
  */
 
+/**
+Pagination
+ */
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -5065,17 +5069,17 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #b8f24c;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+  color: #dbd7c3;
+  background-color: #4a3a2f;
+  border: 1px solid #4a3a2f;
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #98e110;
+  color: white;
   text-decoration: none;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
+  background-color: #a3846f;
+  border-color: #a3846f;
 }
 
 .page-link:focus {
@@ -5090,9 +5094,9 @@ input[type=button].btn-block {
 
 .page-item.active .page-link {
   z-index: 1;
-  color: #fff;
-  background-color: #b8f24c;
-  border-color: #b8f24c;
+  color: white;
+  background-color: #a3846f;
+  border-color: #a3846f;
 }
 
 .page-item.disabled .page-link {

@@ -15,7 +15,7 @@ class Article extends Model
         'id', 'user_id', 'filename'
     ];
 
-    public function getUrlAttribute($value)
+    public function getImageUrlAttribute($value)
     {
         return Storage::url($this->attributes['filename']);
     }
@@ -25,7 +25,7 @@ class Article extends Model
         if (empty($this->attributes['filename'])) {
             return '';
         }
-        return '<img src="' . asset($this->getUrlAttribute('url')) . '" class="img img-fluid" />';
+        return '<img src="' . asset($this->getImageUrlAttribute('url')) . '" class="img img-fluid" />';
     }
 
     /**
