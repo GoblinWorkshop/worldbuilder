@@ -8,7 +8,12 @@
     @foreach ($articles as $article)
         <div class="col-6 col-lg-3 col-xl-2 mb-3">
             <div class="card text-white bg-dark mb-3" style="height:100%;">
-                <div class="card-header"><a href="{{route('articles.show', $article->id)}}">{{$article->name}}</a></div>
+                <div class="card-header">
+                    <a href="{{route('articles.show', $article->id)}}">
+                        {!! $article->icon_label !!}
+                        {{$article->name}}
+                    </a>
+                </div>
                 {!!  $article->thumbnail(200) !!}
                 <div class="card-body">
                     <p class="card-text">

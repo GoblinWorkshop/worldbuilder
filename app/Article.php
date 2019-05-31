@@ -66,6 +66,22 @@ class Article extends Model
         return strip_tags(substr($this->attributes['content'], 0, 150));
     }
 
+    protected function getIconLabelAttribute() {
+        switch ($this->attributes['type']) {
+            case 'locations':
+                return '<i class="fas fa-map-marked-alt"></i>';
+        break;
+            case 'characters':
+                return '<i class="fas fa-user-tie"></i>';
+            break;
+            case 'organisations':
+                return '<i class="fas fa-users"></i>';
+                break;
+            default:
+                return '<i class="far fa-file-alt"></i>';
+        }
+    }
+
     /**
      * Return the extension of a file without the dot.
      * @return mixed
@@ -86,6 +102,9 @@ class Article extends Model
                 break;
             case 'characters':
                 return __('Character');
+                break;
+            case 'organisations':
+                return __('Organisation');
                 break;
         }
         return __('General');
