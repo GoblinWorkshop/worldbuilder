@@ -17,7 +17,17 @@
                 'data-select' => 'select2'
                 ]) }}
             {{ Form::myFile('filename') }}
+            {{ Form::mySelect('location_id', $locations, null, [
+            'label' => __('Current location'),
+            'placeholder' => __('Select location...')
+            ]) }}
 
+            {{ Form::mySelect('locations[]', $locations, null, [
+            'label' => __('Locations'),
+                'multiple' => 'multiple',
+                'data-select' => 'select2',
+                'help' => __('Location that this character visits or has a relation with.')
+                ]) }}
             @if( $character->exists )
                 <h3>{{ __('Relations') }}</h3>
                 <p>
