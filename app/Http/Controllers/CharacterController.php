@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\Http\Controllers\Controller;
+use App\Location;
 use App\Organisation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,9 +42,12 @@ class CharacterController extends Controller
         $character = new Character();
         $organisations = Organisation::get()
             ->pluck('name', 'id');
+        $locations = Location::get()
+            ->pluck('name', 'id');
         return view('character.form', [
             'character' => $character,
-            'organisations' => $organisations
+            'organisations' => $organisations,
+            'locations' => $locations
         ]);
     }
 
@@ -58,10 +62,13 @@ class CharacterController extends Controller
         $character = new Character();
         $character->name = $request->name;
         $character->type = $request->type;
+        $character->location_id = $request->location_id;
         if (!empty($request->file('filename'))) {
             $character->filename = $request->file('filename')->store('public/characters');
         }
         $character->save();
+        $character->organisations()->sync($request->input('organisations'));
+        $character->locations()->sync($request->input('locations'));
         return redirect('/characters');
     }
 
@@ -94,10 +101,13 @@ class CharacterController extends Controller
             ->pluck('name', 'id');
         $organisations = Organisation::get()
             ->pluck('name', 'id');
+        $locations = Location::get()
+            ->pluck('name', 'id');
         return view('character.form', [
             'character' => $character,
             'characters' => $characters,
-            'organisations' => $organisations
+            'organisations' => $organisations,
+            'locations' => $locations
         ]);
     }
 
@@ -114,6 +124,7 @@ class CharacterController extends Controller
             ->first();
         $character->name = $request->name;
         $character->type = $request->type;
+        $character->location_id = $request->location_id;
         if (!empty($request->file('filename'))) {
             if ($character->filename !== '') {
                 Storage::delete($character->filename);
@@ -132,6 +143,7 @@ class CharacterController extends Controller
             $character->relations()->updateOrCreate($relation);
         }
         $character->organisations()->sync($request->input('organisations'));
+        $character->locations()->sync($request->input('locations'));
         return redirect('/characters');
     }
 

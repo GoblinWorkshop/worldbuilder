@@ -63,4 +63,14 @@ class Character extends Model
     {
         return $this->belongsToMany('App\Character', 'relation', 'character_1_id', 'character_2_id');
     }
+
+    public function location()
+    {
+        return $this->belongsTo('App\Location');
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany('App\Location');
+    }
 }
