@@ -62,6 +62,10 @@ class Article extends Model
         return '';
     }
 
+    protected function getShortDescriptionAttribute() {
+        return strip_tags(substr($this->attributes['content'], 0, 150));
+    }
+
     /**
      * Return the extension of a file without the dot.
      * @return mixed
