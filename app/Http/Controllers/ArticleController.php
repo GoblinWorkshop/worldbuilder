@@ -3,28 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
+    use CrudTrait;
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $articles = Article::paginate(12);
-        return view('article.index', [
-            'articles' => $articles
-        ]);
     }
 
     /**
