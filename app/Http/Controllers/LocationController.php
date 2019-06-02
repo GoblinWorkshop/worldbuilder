@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
 use App\Location;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::get();
+        $locations = Location::paginate(12);
         return view('location.index', [
             'locations' => $locations
         ]);
