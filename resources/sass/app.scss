@@ -17,3 +17,7 @@ $fa-font-path: '../../public/font';
 body {
   padding-top: 56px;
 }
+// https://github.com/twbs/bootstrap/issues/23454
+.invalid-feedback {
+  display: block;
+}

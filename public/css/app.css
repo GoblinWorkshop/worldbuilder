@@ -17162,3 +17162,7 @@ body {
   padding-top: 56px;
 }
 
+.invalid-feedback {
+  display: block;
+}
+
