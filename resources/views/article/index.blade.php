@@ -7,7 +7,7 @@
     <div class="row row-eq-height">
     @foreach ($articles as $article)
         <div class="col-6 col-lg-3 col-xl-2 mb-3">
-            <div class="card text-white bg-dark mb-3" style="height:100%;">
+            <div class="card text-white bg-dark mb-3">
                 <div class="card-header">
                     <a href="{{route('articles.show', $article->id)}}">
                         {!! $article->icon_label !!}
@@ -21,8 +21,8 @@
                     </p>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="{{route('articles.show', $article->id)}}" class="btn btn-secondary">Edit</a>
-                    <a href="{{route('articles.edit', $article->id)}}" class="btn btn-secondary">View</a>
+                    <a href="{{route('articles.edit', $article->id)}}" class="btn btn-secondary">Edit</a>
+                    <a href="{{route('articles.show', $article->id)}}" class="btn btn-secondary">View</a>
                 </div>
             </div>
         </div>

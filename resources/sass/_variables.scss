@@ -16,6 +16,7 @@ $fa-font-path: "../font";
 $text-muted: darken(map-get($theme-colors, light), 30%);
 $breadcrumb-bg: transparent;
 $breadcrumb-padding-y:              .25rem;
+$breadcrumb-padding-x: 0;
 
 /**
 Pagination
