@@ -3,30 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Location;
-use App\Http\Controllers\Controller;
+use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class LocationController extends Controller
 {
+    use CrudTrait;
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $locations = Location::paginate(12);
-        return view('location.index', [
-            'locations' => $locations
-        ]);
     }
 
     /**
