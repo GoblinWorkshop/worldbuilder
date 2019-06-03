@@ -16,28 +16,18 @@ class CharacterController extends Controller
 {
     use CrudTrait;
 
+    public $crudConfig = [
+        'create' => [
+            'relatedModels' => [
+                'organisations' => 'App\\Organisation',
+                'locations' => 'App\Location'
+            ]
+        ]
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $character = new Character();
-        $organisations = Organisation::get()
-            ->pluck('name', 'id');
-        $locations = Location::get()
-            ->pluck('name', 'id');
-        return view('character.form', [
-            'character' => $character,
-            'organisations' => $organisations,
-            'locations' => $locations
-        ]);
     }
 
     /**

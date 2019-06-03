@@ -45,7 +45,7 @@ trait CrudTrait
      */
     private function getCrudConfig($action) {
         $config = isset($this->crudConfig) ? $this->crudConfig : [];
-        $config = array_merge_recursive($this->defaultCrudConfig, $config);
+        $config = array_replace_recursive($this->defaultCrudConfig, $config);
         if (! isset($config[$action])) {
             throw new \Exception("Invalid config for $action.");
         }
