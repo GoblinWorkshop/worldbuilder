@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('locations.form', $location))
+@section('breadcrumbs', Breadcrumbs::render('locations.form', $item))
 
 @section('content')
     <div class="card text-white bg-dark">
         <div class="card-header">{{ __('Location details') }}</div>
         <div class="card-body">
-            @if( $location->exists )
-                {!! Form::model($location, ['method' => 'put', 'files' => true, 'route' => ['locations.update', $location->id]]) !!}
+            @if( $item->exists )
+                {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['locations.update', $item->id]]) !!}
             @else
                 {!! Form::open(['url' => Route('locations.store')]) !!}
             @endif

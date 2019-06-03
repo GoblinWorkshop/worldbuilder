@@ -11,24 +11,17 @@ class LocationController extends Controller
 {
     use CrudTrait;
 
+    public $crudConfig = [
+        'create' => [
+            'relatedModels' => [
+                'parents' => 'App\\Location'
+            ]
+        ]
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $location = new Location();
-        $parents = Location::pluck('name', 'id');
-        return view('location.form', [
-            'location' => $location,
-            'parents' => $parents
-        ]);
     }
 
     /**
