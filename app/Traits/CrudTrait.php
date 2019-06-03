@@ -11,6 +11,21 @@ trait CrudTrait
 {
 
     /**
+     * Default config for the crud actions. Merge with $crudConfig in the controller.
+     * @var array
+     */
+    public $defaultCrudConfig = [
+        'index' => [
+            'viewVar' => 'items',
+            'limit' => 12
+        ],
+        'create' => [
+            'viewVar' => 'item',
+            'relatedModels' => [] // 'viewVar' => 'App\Model'. E.g. 'parents' => 'App\Location'
+        ]
+    ];
+
+    /**
      * Get the name of the requested controller.
      * E.g. "Article" of ArticlesController
      * @return string
@@ -18,7 +33,23 @@ trait CrudTrait
     private function getClassName()
     {
         preg_match('/\\\([a-z]+)Controller$/i', static::class, $matches);
-        return isset($matches[1]) ? $matches[1] : '';
+        if (!isset($matches[1]) || empty($matches[1])) {
+            throw new \Exception('Invalid controller name.');
+        }
+        $name = Inflector::singularize($matches[1]);
+        return $name;
+    }
+
+    /**
+     * Merge $defaultCrudConfig with crudConfig array and return the merged array
+     */
+    private function getCrudConfig($action) {
+        $config = isset($this->crudConfig) ? $this->crudConfig : [];
+        $config = array_merge_recursive($this->defaultCrudConfig, $config);
+        if (! isset($config[$action])) {
+            throw new \Exception("Invalid config for $action.");
+        }
+        return $config[$action];
     }
 
     /**
@@ -28,15 +59,13 @@ trait CrudTrait
      */
     public function index()
     {
-        $name = $this->getClassName();
-        if (empty($name)) {
-            throw new \Exception('$name required.');
-        }
-        $name = Inflector::singularize($name);
-        $items = app('App\\' . $name)::paginate(12);
-        return view(strtolower($name) . '.index', [
-            'items' => $items,
-            'name' => $name
+        $model = $this->getClassName();
+        $config = $this->getCrudConfig('index');
+        $items = app('App\\' . $model)::paginate($config['limit']);
+        return view(strtolower($model) . '.index', [
+            'model' => $model,
+            $config['viewVar'] => $items,
+            'viewVar' => $config['viewVar'],
         ]);
     }
 
@@ -47,10 +76,18 @@ trait CrudTrait
      */
     public function create()
     {
-        $name = $this->getClassName();
-        $item = app('App\\' . $name);
-        return view(strtolower($name) . '.form', [
-            'item' => $item
-        ]);
+
+        $model = $this->getClassName();
+        $config = $this->getCrudConfig('create');
+        $item = app('App\\' . $model);
+        $viewVars = [
+            'model' => $model,
+            $config['viewVar'] => $item,
+            'viewVar' => $config['viewVar']
+        ];
+        foreach ($config['relatedModels'] as $var => $relatedModel) {
+            $viewVars[$var] = app($relatedModel)::pluck('name', 'id');
+        }
+        return view(strtolower($model) . '.form', $viewVars);
     }
 }
