@@ -1,14 +1,10 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('articles.show', $article))
+@section('breadcrumbs', Breadcrumbs::render('articles.show', $item))
 @section('sidebar')
-    <a href="{{route('articles.edit', $article->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
-    @endsection
-
+    <a href="{{route('articles.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
+@endsection
 @section('content')
-
-{{$article->name}}
-{!!$article->content!!}
-{!!$article->image!!}
-
-
-    @endsection
+{{$item->name}}
+{!!$item->content!!}
+{!!$item->image!!}
+@endsection

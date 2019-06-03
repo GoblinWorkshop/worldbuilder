@@ -52,21 +52,6 @@ class CharacterController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $character = Character::where('id', $id)
-            ->first();
-        return view('character.show', [
-            'character' => $character
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id

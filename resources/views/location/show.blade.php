@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('locations.show', $location))
+@section('breadcrumbs', Breadcrumbs::render('locations.show', $item))
 @section('sidebar')
-    <a href="{{route('locations.edit', $location->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
-    @foreach ($location->children as $child)
+    <a href="{{route('locations.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
+    @foreach ($item->children as $child)
         @if ($loop->first)
             <p>
                 {{__('Locations found in this region')}}<br/>
@@ -13,14 +13,10 @@
         @endif
     @endforeach
 @endsection
-
 @section('content')
-
-    <h1>{{$location->name}}</h1>
-    @if ($location->article)
-        <p>{{__('Article')}}: <a href="{{route('articles.show', $location->article->id)}}">{{$location->article->name}}</a></p>
+    <h1>{{$item->name}}</h1>
+    @if ($item->article)
+        <p>{{__('Article')}}: <a href="{{route('articles.show', $item->article->id)}}">{{$item->article->name}}</a></p>
     @endif
-    {!!$location->image!!}
-
-
+    {!!$item->image!!}
 @endsection

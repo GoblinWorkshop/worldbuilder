@@ -4,42 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Organisation;
 use App\Http\Controllers\Controller;
+use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class OrganisationController extends Controller
 {
+    use CrudTrait;
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $organisations = Organisation::get();
-        return view('organisation.index', [
-            'items' => $organisations
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $organisation = new Organisation();
-        return view('organisation.form', [
-            'item' => $organisation
-        ]);
     }
 
     /**
@@ -55,21 +31,6 @@ class OrganisationController extends Controller
         $organisation->type = $request->type;
         $organisation->save();
         return redirect('/organisations');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $organisation = Organisation::where('id', $id)
-            ->first();
-        return view('organisation.show', [
-            'item' => $organisation
-        ]);
     }
 
     /**

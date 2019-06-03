@@ -22,6 +22,9 @@ trait CrudTrait
         'create' => [
             'viewVar' => 'item',
             'relatedModels' => [] // 'viewVar' => 'App\Model'. E.g. 'parents' => 'App\Location'
+        ],
+        'show' => [
+            'viewVar' => 'item'
         ]
     ];
 
@@ -29,6 +32,7 @@ trait CrudTrait
      * Get the name of the requested controller.
      * E.g. "Article" of ArticlesController
      * @return string
+     * @throws \Exception Error with invalid controller names.
      */
     private function getClassName()
     {
@@ -76,7 +80,6 @@ trait CrudTrait
      */
     public function create()
     {
-
         $model = $this->getClassName();
         $config = $this->getCrudConfig('create');
         $item = app('App\\' . $model);
@@ -89,5 +92,23 @@ trait CrudTrait
             $viewVars[$var] = app($relatedModel)::pluck('name', 'id');
         }
         return view(strtolower($model) . '.form', $viewVars);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $model = $this->getClassName();
+        $config = $this->getCrudConfig('show');
+        $item = app('App\\' . $model)::where('id', $id)
+            ->first();
+        return view(strtolower($model) . '.show', [
+            'model' => $model,
+            $config['viewVar'] => $item
+        ]);
     }
 }

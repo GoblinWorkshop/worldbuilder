@@ -38,21 +38,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $article = Article::where('id', $id)
-            ->first();
-        return view('article.show', [
-            'article' => $article
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id

@@ -43,21 +43,6 @@ class LocationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $location = Location::where('id', $id)
-            ->first();
-        return view('location.show', [
-            'location' => $location
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
