@@ -6,6 +6,7 @@ use App\Character;
 use App\Http\Controllers\Controller;
 use App\Location;
 use App\Organisation;
+use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -13,23 +14,11 @@ use Kalnoy\Nestedset\Collection;
 
 class CharacterController extends Controller
 {
+    use CrudTrait;
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $characters = Character::get();
-        return view('character.index', [
-            'characters' => $characters
-        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\ArticleTrait;
+use App\Traits\ThumbnailTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -11,6 +12,7 @@ class Character extends Model
 {
     use SoftDeletes;
     use ArticleTrait;
+    use ThumbnailTrait;
 
     protected $guarded = [
         'id', 'user_id', 'filename'
