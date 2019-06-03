@@ -21,10 +21,15 @@ trait CrudTrait
         ],
         'create' => [
             'viewVar' => 'item',
+            // @todo make 'App\Model' => [] (config). E.g. conditions
             'relatedModels' => [] // 'viewVar' => 'App\Model'. E.g. 'parents' => 'App\Location'
         ],
         'show' => [
             'viewVar' => 'item'
+        ],
+        'edit' => [
+            'viewVar' => 'item',
+            'relatedModels' => [] // 'viewVar' => 'App\Model'. E.g. 'parents' => 'App\Location'
         ]
     ];
 
@@ -110,5 +115,30 @@ trait CrudTrait
             'model' => $model,
             $config['viewVar'] => $item
         ]);
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $model = $this->getClassName();
+        $config = $this->getCrudConfig('edit');
+        $item = app('App\\' . $model)::where('id', $id)
+            ->first();
+        $viewVars = [
+            'model' => $model,
+            $config['viewVar'] => $item,
+            'viewVar' => $config['viewVar']
+        ];
+        foreach ($config['relatedModels'] as $var => $relatedModel) {
+            $viewVars[$var] = app($relatedModel)::pluck('name', 'id');
+        }
+        return view(strtolower($model) . '.form', $viewVars);
     }
 }

@@ -53,7 +53,7 @@ class CharacterController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * @todo create conditions for related models in crud
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -68,7 +68,7 @@ class CharacterController extends Controller
         $locations = Location::get()
             ->pluck('name', 'id');
         return view('character.form', [
-            'character' => $character,
+            'item' => $character,
             'characters' => $characters,
             'organisations' => $organisations,
             'locations' => $locations

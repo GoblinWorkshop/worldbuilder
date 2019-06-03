@@ -5,7 +5,7 @@
         <div class="card-header">{{ __('Article details') }}</div>
         <div class="card-body">
             @if( $item->exists )
-                {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['articles.update', $article->id]]) !!}
+                {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['articles.update', $item->id]]) !!}
             @else
                 {!! Form::open(['url' => Route('articles.store')]) !!}
             @endif

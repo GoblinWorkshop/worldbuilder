@@ -16,6 +16,11 @@ class LocationController extends Controller
             'relatedModels' => [
                 'parents' => 'App\\Location'
             ]
+        ],
+        'edit' => [
+            'relatedModels' => [
+                'parents' => 'App\\Location'
+            ]
         ]
     ];
 
@@ -40,28 +45,6 @@ class LocationController extends Controller
         }
         $location->save();
         return redirect('/locations');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $location = Location::where('id', $id)
-            ->first();
-        $parents = Location::where('id', '!=', $id)
-            ->where(function ($query) use ($id) {
-                $query->where('parent_id', '!=', $id)
-                    ->orWhereNull('parent_id');
-            })
-            ->pluck('name', 'id');
-        return view('location.form', [
-            'location' => $location,
-            'parents' => $parents
-        ]);
     }
 
     /**
