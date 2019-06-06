@@ -15,8 +15,13 @@
     </p>
 @endsection
 @section('content')
+    @foreach ($characters as $character)
+        {!! $character->thumbnail(100,100, [
+        'class' => 'd-none',
+        'id' => 'thumbnail-'. $character->id
+        ]) !!}
+    @endforeach
     <div id="relations"></div>
-
     <script>
         window.onload = function() {
             Relation.init({

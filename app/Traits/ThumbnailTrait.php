@@ -16,7 +16,7 @@ trait ThumbnailTrait
             return '';
         }
         $acceptedSizes = [
-            0, 200, 500, 1000, 2000
+            0, 100, 200, 500, 1000
         ];
         if (!in_array($width, $acceptedSizes)) {
             $width = 200;
@@ -27,13 +27,17 @@ trait ThumbnailTrait
         $tmpFilename = md5($width . $height . $this->attributes['filename']) . '.'. $this->file_extension;
         $path = public_path('cache') . '/';
         $tmpFilepath = $path . $tmpFilename;
+        $attributesHtml = '';
+        foreach ($attributes as $key => $value) {
+            $attributesHtml .= ' '. $key .'="'. $value .'"';
+        }
         if (is_file($tmpFilepath)) {
-            return '<img src="'. asset('/cache/'. $tmpFilename) .'" />';
+            return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         $img = Image::make(storage_path('app') . '/'. $this->attributes['filename']);
         $img->fit($width, $height);
         if ($img->save($tmpFilepath)) {
-            return '<img src="'. asset('/cache/'. $tmpFilename) .'" />';
+            return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         return '';
     }

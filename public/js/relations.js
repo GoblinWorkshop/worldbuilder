@@ -25,10 +25,15 @@ var Relation = {
         this.render();
     },
 
+    /**
+     * @todo calculate from and to relations (not all from the same starting point)
+     * @todo add images instead of names (or both)
+     * @todo add multiple colors
+     */
     render: function () {
         this.settings.element.appendChild(this.canvas);
         var ctx = this.canvas.getContext('2d');
-        ctx.font = "18px 'Open Sans', Arial";
+        ctx.font = "12px 'Open Sans', Arial";
         ctx.fillStyle = "#ff9900";
         ctx.textBaseline = "middle";
         var steps = this.settings.characters.length;
@@ -39,21 +44,14 @@ var Relation = {
             var x = (radius + radius * Math.cos(2 * Math.PI * i / steps)); // Math.floor(Math.random() * (canvas.width - 100)),
             var y = (radius + radius * Math.sin(2 * Math.PI * i / steps)); //Math.floor(Math.random() * (canvas.height - 50)),
             this._characterPositions['character_' + character.id] = {
-                x: x,
-                y: y
+                x: (x + 50),
+                y: (y + 50)
             };
-            ctx.fillText(character.name, x, y);
         }
+
         for (var i = 0; i < this.settings.relations.length; i++) {
             var relation = this.settings.relations[i];
-
-            var color = '#ff9900';
-            switch (relation.type) {
-                case 'brother':
-                    color = '#00ffff';
-                    break;
-                default:
-            }
+            var color = this._getColor(relation.type);
             ctx.strokeStyle = color;
             ctx.beginPath();
             var locationChar = this._characterPositions['character_' + relation.character_1_id];
@@ -66,9 +64,62 @@ var Relation = {
             ctx.stroke();
         }
 
+        for (var i = 0; i < steps; i++) {
+            var character = this.settings.characters[i];
+            var x = (radius + radius * Math.cos(2 * Math.PI * i / steps)); // Math.floor(Math.random() * (canvas.width - 100)),
+            var y = (radius + radius * Math.sin(2 * Math.PI * i / steps)); //Math.floor(Math.random() * (canvas.height - 50)),
+            this._characterPositions['character_' + character.id] = {
+                x: (x + 50),
+                y: (y + 50)
+            };
+            ctx.drawImage(document.getElementById('thumbnail-' + character.id), x, y, 100, 100);
+            ctx.fillText(character.name, x, (y + 110));
+        }
     },
 
     _randomNumber: function (min, max) {
-        return Math.floor(Math.random()*(max-min+1)+min);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    },
+
+    /**
+     * Get the color based on the relation type
+     *
+     'acquaintance' => 'Acquaintance',
+     'lover' => 'Lover',
+     'friend' => 'Friend',
+     'enemy' => 'Enemy',
+     'brother' => 'Brother',
+     'sister' => 'Sister',
+     'mother' => 'Mother',
+     'father' => 'Father',
+     'son' => 'Son',
+     'daughter' => 'Daughter',
+     * @param type
+     * @returns {string}
+     * @private
+     */
+    _getColor: function (type) {
+        var color = '#ff9900';
+        switch (type) {
+            case 'acquaintance':
+                color = '#999999';
+                break;
+            case 'friend':
+                color = '#376420';
+                break;
+            case 'enemy':
+                color = '#642020';
+                break;
+            case 'brother':
+            case 'sister':
+            case 'mother':
+            case 'father':
+            case 'son':
+            case 'daughter':
+                color = '#204d64';
+                break;
+            default:
+        }
+        return color;
     }
 };

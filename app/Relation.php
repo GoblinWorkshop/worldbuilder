@@ -15,12 +15,15 @@ class Relation extends Model
 
     public static $types = [
         'acquaintance' => 'Acquaintance',
+        'lover' => 'Lover',
         'friend' => 'Friend',
         'enemy' => 'Enemy',
         'brother' => 'Brother',
         'sister' => 'Sister',
         'mother' => 'Mother',
-        'father' => 'Father'
+        'father' => 'Father',
+        'son' => 'Son',
+        'daughter' => 'Daughter',
     ];
 
     protected $guarded = [
