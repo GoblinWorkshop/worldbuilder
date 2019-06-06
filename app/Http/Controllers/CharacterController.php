@@ -31,6 +31,24 @@ class CharacterController extends Controller
     }
 
     /**
+     * Generate a view for all relations of all characters
+     */
+    public function relations() {
+        $characters = Character::with('relations')
+        ->get();
+        $relations = []; // This must be doable through the collections...
+        foreach ($characters as $character) {
+            foreach ($character->relations as $relation) {
+                $relations[] = $relation;
+            }
+        }
+        return view ('character.relations', [
+            'characters' => $characters,
+            'relations' => $relations
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

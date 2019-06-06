@@ -55,6 +55,10 @@ Breadcrumbs::for('characters.form', function ($trail, $item) {
         $trail->push(__('Create'), route('characters.create'));
     }
 });
+Breadcrumbs::for('characters.relations', function ($trail) {
+    $trail->parent('characters.index');
+    $trail->push(__('Relations'), route('characters.relations'));
+});
 
 // App > Organisations
 Breadcrumbs::for('organisations.index', function ($trail) {

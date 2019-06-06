@@ -3,6 +3,7 @@
 @section('sidebar')
     <a href="{{route('characters.create')}}" class="btn btn-secondary">New</a>
     <a href="{{route('organisations.index')}}" class="btn btn-secondary">Organisations</a><br />
+    <a href="{{route('characters.relations')}}" class="btn btn-secondary">Relations</a><br />
 @endsection
 @section('header')
     <h1>{{__('Characters')}}</h1>

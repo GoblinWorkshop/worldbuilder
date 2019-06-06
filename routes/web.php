@@ -32,6 +32,7 @@ Auth::routes();
 Route::get('/dashboard', function () {
     return 'Create dashboard';
 })->name('dashboard');
+Route::get('/relations', 'CharacterController@relations')->name('characters.relations');
 Route::resource('articles', 'ArticleController');
 Route::resource('characters', 'CharacterController');
 Route::resource('organisations', 'OrganisationController');
