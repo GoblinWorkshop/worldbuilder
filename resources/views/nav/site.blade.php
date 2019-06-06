@@ -16,7 +16,7 @@
                         <a href="{{url('/articles')}}" class="nav-link">Dashboard</a></li>
                 @endguest
             <li class="nav-item">
-                <a href="https://github.com/goblinworkshop/platform" class="nav-link" target="_blank"><i
+                <a href="https://github.com/GoblinWorkshop/worldbuilder" class="nav-link" target="_blank"><i
                             class="fab fa-github"></i></a></li>
         </ul>
         <ul class="navbar-nav ml-auto">

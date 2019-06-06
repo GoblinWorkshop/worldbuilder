@@ -19,7 +19,7 @@
                 <a href="{{route('characters.index')}}" class="nav-link">Characters</a>
             </li>
             <li class="nav-item">
-                <a href="https://github.com/goblinworkshop/platform" class="nav-link" target="_blank"><i
+                <a href="https://github.com/GoblinWorkshop/worldbuilder" class="nav-link" target="_blank"><i
                             class="fab fa-github"></i></a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
