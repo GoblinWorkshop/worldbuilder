@@ -6,7 +6,7 @@ $theme-colors: (
         "dark": #4a3a2f,
         "black": #000
 );
-$body-bg: #000;
+$body-bg: map-get($theme-colors, dark);
 $body-color: map-get($theme-colors, light);
 $enable-rounded: false;
 $border-radius: 0;
@@ -31,3 +31,12 @@ $pagination-hover-border-color: lighten($pagination-border-color, 30%);
 $pagination-active-color: $pagination-hover-color;
 $pagination-active-bg: $pagination-hover-bg;
 $pagination-active-border-color: $pagination-hover-border-color;
+
+/**
+Tabs
+ */
+$nav-tabs-border-color:             darken(map-get($theme-colors, dark), 10%);
+$nav-tabs-link-hover-border-color:  $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-border-color;
+$nav-tabs-link-active-color:        map-get($theme-colors, primary);
+$nav-tabs-link-active-bg:           map-get($theme-colors, dark);
+$nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-border-color;

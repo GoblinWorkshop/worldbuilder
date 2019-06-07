@@ -8,7 +8,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-black">
 @yield('nav', View::make('nav.app'))
 <div class="container-fluid">
 @yield('breadcrumbs')

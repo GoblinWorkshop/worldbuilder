@@ -107,6 +107,9 @@ var Relation = {
             case 'friend':
                 color = '#376420';
                 break;
+            case 'lover':
+                color = '#99448a';
+                break;
             case 'enemy':
                 color = '#642020';
                 break;

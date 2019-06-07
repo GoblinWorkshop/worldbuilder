@@ -8,6 +8,10 @@ For logged in users in their account
 Pagination
  */
 
+/**
+Tabs
+ */
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -82,7 +86,7 @@ body {
   line-height: 1.5;
   color: #dbd7c3;
   text-align: left;
-  background-color: #000;
+  background-color: #4a3a2f;
 }
 
 [tabindex="-1"]:focus {
@@ -527,7 +531,7 @@ mark,
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #000;
+  background-color: #4a3a2f;
   border: 1px solid #dee2e6;
   max-width: 100%;
   height: auto;
@@ -4219,15 +4223,15 @@ input[type=button].btn-block {
 }
 
 .custom-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #000, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
+  box-shadow: 0 0 0 1px #4a3a2f, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
 }
 
 .custom-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #000, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
+  box-shadow: 0 0 0 1px #4a3a2f, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
 }
 
 .custom-range:focus::-ms-thumb {
-  box-shadow: 0 0 0 1px #000, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
+  box-shadow: 0 0 0 1px #4a3a2f, 0 0 0 0.2rem rgba(184, 242, 76, 0.25);
 }
 
 .custom-range::-moz-focus-outer {
@@ -4393,7 +4397,7 @@ input[type=button].btn-block {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #2b221b;
 }
 
 .nav-tabs .nav-item {
@@ -4406,7 +4410,7 @@ input[type=button].btn-block {
 
 .nav-tabs .nav-link:hover,
 .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color: #2b221b #2b221b #2b221b;
 }
 
 .nav-tabs .nav-link.disabled {
@@ -4417,9 +4421,9 @@ input[type=button].btn-block {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
-  background-color: #000;
-  border-color: #dee2e6 #dee2e6 #000;
+  color: #b8f24c;
+  background-color: #4a3a2f;
+  border-color: #2b221b #2b221b #2b221b;
 }
 
 .nav-tabs .dropdown-menu {

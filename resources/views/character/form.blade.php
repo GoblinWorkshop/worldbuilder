@@ -1,9 +1,26 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('characters.form', $item))
+@section('header')
+    <h1>{{$item->name??__('Unnamed character')}}</h1>
+@endsection
 @section('content')
-    <div class="card text-white bg-dark">
-        <div class="card-header">{{ __('Character details') }}</div>
-        <div class="card-body">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab"
+               aria-controls="details" aria-selected="true">
+                {{__('Details')}}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="relations-tab" data-toggle="tab" href="#relations" role="tab"
+               aria-controls="relations" aria-selected="false">
+                {{__('Relations')}}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content p-3 bg-dark">
+        <div class="tab-pane show active" id="details" role="tabpanel" aria-labelledby="home-tab">
+
             @if( $item->exists )
                 {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['characters.update', $item->id]]) !!}
             @else
@@ -28,41 +45,65 @@
                 'data-select' => 'select2',
                 'help' => __('Location that this character visits or has a relation with.')
                 ]) }}
-            @if( $item->exists )
-                <h3>{{ __('Relations') }}</h3>
-                <p>
-                    {{ __('Select characters with whom this character has a relation with. This can be father, mother, friend, etc.') }}
-                </p>
+        </div>
+        <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="profile-tab">
+            <p>
+                {{ __('Select characters with whom this character has a relation with. This can be father, mother, friend, etc.') }}
+            </p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        {{__('Relation')}}
+                    </th>
+                    <th>
+                        {{__('Type')}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
                 $index = -1; // sorry
                 ?>
                 @foreach ($item->relations as $index => $relation)
-                    {{ Form::hidden("relation[$index][id]", $relation->id) }}
-                    {{ Form::mySelect("relation[$index][character_2_id]", $characters, $relation->character_2_id, [
-                    'placeholder' => __('Select relation...'),
-                    'label' => __('Relation')
-                    ])}}
-                    {{ Form::mySelect("relation[$index][type]", $relation->types, $relation->type, [
-                    'label' => __('Type')
-                    ]) }}
-                    <hr/>
+                    <tr>
+                        <td>
+                            {{ Form::hidden("relation[$index][id]", $relation->id) }}
+                            {{ Form::mySelect("relation[$index][character_2_id]", $characters, $relation->character_2_id, [
+                            'placeholder' => __('Select relation...'),
+                            'label' => false
+                            ])}}
+                        </td>
+                        <td>
+                            {{ Form::mySelect("relation[$index][type]", $relation->types, $relation->type, [
+                            'label' => false
+                            ]) }}
+                        </td>
+                    </tr>
                 @endforeach
                 <?php
                 $index++;
                 ?>
-                {{ Form::mySelect("relation[$index][character_2_id]",
-                    $characters,
-                    null, [
-                    'placeholder' => __('Select relation...'),
-                    'label' => __('Relation')
-                    ])
-                }}
-                {{ Form::mySelect("relation[$index][type]", \App\Relation::$types, null, [
-                'label' => __('Type')
-                ]) }}
-            @endif
-            {{ Form::mySubmit(__('Save')) }}
-            {!! Form::close() !!}
+                <tr>
+                    <td>
+                        {{ Form::mySelect("relation[$index][character_2_id]",
+                            $characters,
+                            null, [
+                            'placeholder' => __('Select relation...'),
+                            'label' => false
+                            ])
+                        }}
+                    </td>
+                    <td>
+                        {{ Form::mySelect("relation[$index][type]", \App\Relation::$types, null, [
+                        'label' => false
+                        ]) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    {{ Form::mySubmit(__('Save')) }}
+    {!! Form::close() !!}
 @endsection
