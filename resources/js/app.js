@@ -22,5 +22,7 @@ ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
 });
 
 $(document).ready(function() {
-    $("select[data-select='select2']").select2();
+    $("select[data-select='select2']").select2({
+        theme: "bootstrap"
+    });
 });

@@ -28,6 +28,7 @@
         "@ckeditor/ckeditor5-build-classic": "^12.1.0",
         "@ckeditor/ckeditor5-ckfinder": "^11.0.1",
         "@ttskch/select2-bootstrap4-theme": "^1.2.2",
-        "select2": "^4.0.7"
+        "select2": "^4.0.7",
+        "select2-theme-bootstrap4": "^0.2.0-beta.3"
     }
 }
