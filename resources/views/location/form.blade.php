@@ -8,7 +8,7 @@
             @if( $item->exists )
                 {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['locations.update', $item->id]]) !!}
             @else
-                {!! Form::open(['url' => Route('locations.store')]) !!}
+                {!! Form::open(['url' => Route('locations.store'), 'files' => true]) !!}
             @endif
             {{ Form::myText('name') }}
             {{ Form::mySelect('parent_id', $parents, null, ['label' => __('Parent'), 'placeholder' => __('Select location...')]) }}
