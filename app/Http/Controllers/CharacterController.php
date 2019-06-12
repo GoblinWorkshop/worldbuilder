@@ -20,6 +20,7 @@ class CharacterController extends Controller
         'create' => [
             'relatedModels' => [
                 'organisations' => 'App\\Organisation',
+                'characters' => 'App\\Character',
                 'locations' => 'App\Location'
             ]
         ]
