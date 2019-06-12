@@ -24,7 +24,7 @@
             @if( $item->exists )
                 {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['characters.update', $item->id]]) !!}
             @else
-                {!! Form::open(['url' => Route('characters.store')]) !!}
+                {!! Form::open(['url' => Route('characters.store'), 'files' => true]) !!}
             @endif
             {{ Form::myText('name') }}
             {{ Form::mySelect('type', $item->types) }}

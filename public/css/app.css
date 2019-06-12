@@ -17943,3 +17943,7 @@ body {
   display: block;
 }
 
+.ck-editor__main {
+  color: #000;
+}
+

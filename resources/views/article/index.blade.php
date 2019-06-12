@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('articles.index'))
+@section('header')
+    <h1>{{__('Articles')}}</h1>
+    <p class="text-muted">{{__('Articles are is the content for each location, character, organisation e.t.c.')}}</p>
+@endsection
 @section('sidebar')
     <a href="{{url('/articles/create')}}" class="btn btn-secondary">New</a><br />
 @endsection

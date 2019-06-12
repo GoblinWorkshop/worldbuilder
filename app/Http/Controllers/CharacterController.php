@@ -17,6 +17,13 @@ class CharacterController extends Controller
     use CrudTrait;
 
     public $crudConfig = [
+        'edit' => [
+            'relatedModels' => [
+                'organisations' => 'App\\Organisation',
+                'characters' => 'App\\Character',
+                'locations' => 'App\Location'
+            ]
+        ],
         'create' => [
             'relatedModels' => [
                 'organisations' => 'App\\Organisation',
@@ -68,30 +75,6 @@ class CharacterController extends Controller
         $character->organisations()->sync($request->input('organisations'));
         $character->locations()->sync($request->input('locations'));
         return redirect('/characters');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @todo create conditions for related models in crud
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $character = Character::where('id', $id)
-            ->first();
-        $characters = Character::where('id', '!=', $id)
-            ->pluck('name', 'id');
-        $organisations = Organisation::get()
-            ->pluck('name', 'id');
-        $locations = Location::get()
-            ->pluck('name', 'id');
-        return view('character.form', [
-            'item' => $character,
-            'characters' => $characters,
-            'organisations' => $organisations,
-            'locations' => $locations
-        ]);
     }
 
     /**

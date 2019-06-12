@@ -7,7 +7,7 @@
             @if( $item->exists )
                 {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['articles.update', $item->id]]) !!}
             @else
-                {!! Form::open(['url' => Route('articles.store')]) !!}
+                {!! Form::open(['url' => Route('articles.store'), 'files' => true]) !!}
             @endif
             {{ Form::myText('name') }}
             {{ Form::myTextarea('content', null, ['editor' => 'rich']) }}
