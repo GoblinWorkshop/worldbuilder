@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('locations.show', $item))
+@section('header')
+    <h1>{{$item->name}}</h1>
+@endsection
 @section('sidebar')
     <a href="{{route('locations.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
     @foreach ($item->children as $child)

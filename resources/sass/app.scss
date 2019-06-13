@@ -26,3 +26,9 @@ body {
 .ck-editor__main {
   color: #000;
 }
+
+blockquote {
+  @extend .blockquote;
+  border-left: 5px solid rgba(255, 255, 255, .5);
+  padding-left: inherit;
+}
