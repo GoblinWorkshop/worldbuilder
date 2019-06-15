@@ -14,7 +14,7 @@
 @section('content')
     <div class="row row-eq-height">
         @foreach ($items as $item)
-            <div class="col-6 col-lg-3 col-xl-2 mb-3">
+            <div class="col-md-6 col-lg-3 col-xl-2 mb-3">
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-header">
                         <a href="{{route('characters.show', $item->id)}}">
