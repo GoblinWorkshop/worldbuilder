@@ -1,6 +1,10 @@
 #!/bin/bash
 # Pull the latest git and composer update with no dev
+echo "Force Pull from git..."
 git fetch --all
 git reset --hard origin/master
+echo "Updating Composer..."
 composer update --no-dev
+echo "Run npm production script..."
 npm run prod
+echo "All done."
