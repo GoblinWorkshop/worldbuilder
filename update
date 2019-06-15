@@ -1,5 +1,5 @@
 #!/bin/bash
-# Pull the latest git and composer update with no dev
+# Pull the latest changes from git, update requirements, migrate database, run frontend scripts
 echo "Force Pull from git..."
 git fetch --all
 git reset --hard origin/master
