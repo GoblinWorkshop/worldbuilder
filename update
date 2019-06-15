@@ -5,10 +5,15 @@ git fetch --all
 git reset --hard origin/master
 echo "Updating Composer..."
 composer update --no-dev
+composer dump-autoload
 echo "Migrating database..."
 php artisan migrate
 echo "Run npm production script..."
 npm run prod
+echo "Clear & compile cache..."
+php artisan view:clear
+php artisan cache:clear
+php artisan view:cache
 echo "Set update script executable..."
 chmod 700 update
 echo "All done."

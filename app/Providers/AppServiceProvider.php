@@ -49,9 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->setAuthScopes();
         $this->setArticleScopes();
 
-        Blade::directive('html', function ($unsafeHtml) {
-            return "<?php echo (new \HTMLPurifier())->purify($unsafeHtml); ?>";
-        });
+        $this->setBladeDirectives();
     }
 
     /**
@@ -79,5 +77,14 @@ class AppServiceProvider extends ServiceProvider
         Location::observe(ArticleObserver::class);
         Character::observe(ArticleObserver::class);
         Organisation::observe(ArticleObserver::class);
+    }
+
+    /**
+     * Set all custom directives for the Blade template engine
+     */
+    private function setBladeDirectives() {
+        Blade::directive('html', function ($unsafeHtml) {
+            return "<?php echo html($unsafeHtml); ?>";
+        });
     }
 }
