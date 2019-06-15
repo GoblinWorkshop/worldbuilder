@@ -7,6 +7,6 @@
     <a href="{{route('articles.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
 @endsection
 @section('content')
-{!!$item->content!!}
+@html($item->content)
 {!!$item->image!!}
 @endsection

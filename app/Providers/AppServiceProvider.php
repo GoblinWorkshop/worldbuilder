@@ -11,6 +11,7 @@ use App\Observers\AuthObserver;
 use App\Organisation;
 use App\Scopes\AuthScope;
 use Collective\Html\FormBuilder;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -47,6 +48,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->setAuthScopes();
         $this->setArticleScopes();
+
+        Blade::directive('html', function ($unsafeHtml) {
+            return "<?php echo (new \HTMLPurifier())->purify($unsafeHtml); ?>";
+        });
     }
 
     /**
