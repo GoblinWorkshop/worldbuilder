@@ -10,25 +10,24 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
+        "@ckeditor/ckeditor5-ckfinder": "^11.0.1",
         "@fortawesome/fontawesome-free": "^5.8.2",
+        "@ttskch/select2-bootstrap4-theme": "^1.2.2",
         "axios": "^0.19",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.3.1",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.4.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
-        "popper.js": "^1.12",
+        "popper.js": "^1.15.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
+        "select2": "^4.0.7",
+        "select2-theme-bootstrap4": "^0.2.0-beta.3",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
-    "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
-        "@ckeditor/ckeditor5-ckfinder": "^11.0.1",
-        "@ttskch/select2-bootstrap4-theme": "^1.2.2",
-        "select2": "^4.0.7",
-        "select2-theme-bootstrap4": "^0.2.0-beta.3"
-    }
+    "dependencies": {}
 }
