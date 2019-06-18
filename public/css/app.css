@@ -525,7 +525,8 @@ blockquote {
   content: "\2014\A0";
 }
 
-.img-fluid {
+.img-fluid,
+.image-style-side img {
   max-width: 100%;
   height: auto;
 }

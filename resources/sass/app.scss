@@ -35,4 +35,7 @@ blockquote {
 .image-style-side {
   @extend .float-right;
   max-width: 50%;
+  img {
+    @extend .img-fluid;
+  }
 }
