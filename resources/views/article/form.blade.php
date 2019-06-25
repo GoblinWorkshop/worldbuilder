@@ -1,5 +1,16 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('articles.form', $item))
+
+@if( $item->exists )
+@section('sidebar')
+    @switch($item->type)
+        @case('locations')
+        @include('location.summary', ['location' => $item->location])
+        @break
+    @endswitch
+@endsection
+@endif
+
 @section('content')
     <div class="card text-white bg-dark">
         <div class="card-header">{{ __('Article details') }}</div>

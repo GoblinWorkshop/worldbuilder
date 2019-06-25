@@ -68,4 +68,11 @@ class Article extends Model
         }
         return __('General');
     }
+
+    /**
+     * Retrieve the location of this article
+     */
+    public function location() {
+        return $this->belongsTo('App\Location', 'foreign_id');
+    }
 }

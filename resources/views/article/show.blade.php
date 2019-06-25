@@ -5,6 +5,11 @@
 @endsection
 @section('sidebar')
     <a href="{{route('articles.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
+    @switch($item->type)
+        @case('locations')
+        @include('location.summary', ['location' => $item->location])
+        @break
+    @endswitch
 @endsection
 @section('content')
 @html($item->content)
