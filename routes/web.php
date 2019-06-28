@@ -42,4 +42,5 @@ Route::resource('assets', 'AssetController');
 
 Route::prefix('api')->group(function () {
     Route::get('characters', 'CharacterController@api_index');
+    Route::get('locations', 'LocationController@api_index');
 });

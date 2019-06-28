@@ -42822,6 +42822,11 @@ function MyCustomUploadAdapterPlugin(editor) {
     return new _components_CkeditorUpload__WEBPACK_IMPORTED_MODULE_1__["default"](loader);
   };
 }
+/**
+ * Get the characters through Promise callback and add some attributes to the list
+ * @param query
+ */
+
 
 function getCharacters(query) {
   return $.ajax({
@@ -42844,13 +42849,41 @@ function getCharacters(query) {
     return data;
   });
 }
+/**
+ * Get the locations through Promise callback and add some attributes to the list
+ * @param query
+ */
 
-function parseCharacter(item) {
-  var itemElement = document.createElement('div');
-  itemElement.id = "mention-list-entity-id-".concat(item.entityId);
-  itemElement.textContent = "".concat(item.name, " ");
-  return itemElement;
+
+function getLocations(query) {
+  return $.ajax({
+    url: '/api/locations?q=' + query,
+    type: 'get',
+    dataType: 'json'
+  }).done(function (data, textStatus, jqXhr) {
+    var newData = [];
+
+    for (var i = 0; i < data.length; i++) {
+      data[i].entityLink = '/locations/' + data[i].id;
+      data[i].entityId = data[i].id;
+      data[i].id = '#' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+
+      newData.push(data[i]);
+    }
+
+    return newData;
+  }).then(function (data) {
+    return data;
+  });
 }
+/**
+ * Customize the mention output to
+ * <a class="mention" data-mention="@Character" data-entity-id="1" href="/characters/1">@Character</a>
+ * @param editor
+ * @constructor
+ * @link https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#customizing-the-output
+ */
+
 
 function MentionCustomization(editor) {
   // The upcast converter will convert view <a class="mention" href="" data-user-id="">
@@ -42907,8 +42940,11 @@ _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a.create(
     feeds: [{
       marker: '@',
       feed: getCharacters,
-      minimumCharacters: 1,
-      itemRenderer: parseCharacter
+      minimumCharacters: 1
+    }, {
+      marker: '#',
+      feed: getLocations,
+      minimumCharacters: 1
     }]
   }
 });

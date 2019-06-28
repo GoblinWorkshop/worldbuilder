@@ -20,12 +20,16 @@ function MyCustomUploadAdapterPlugin(editor) {
     };
 }
 
+/**
+ * Get the characters through Promise callback and add some attributes to the list
+ * @param query
+ */
 function getCharacters(query) {
     return $.ajax({
         url: '/api/characters?q=' + query,
         type: 'get',
         dataType: 'json',
-    }).done(function(data, textStatus, jqXhr) {
+    }).done(function (data, textStatus, jqXhr) {
         var newData = [];
         for (var i = 0; i < data.length; i++) {
             data[i].entityLink = '/characters/' + data[i].id;
@@ -35,23 +39,46 @@ function getCharacters(query) {
         }
         return newData;
     })
-        .then(function(data) {
+        .then(function (data) {
             return data;
         });
 }
 
-function parseCharacter (item) {
-
-    const itemElement = document.createElement( 'div' );
-    itemElement.id = `mention-list-entity-id-${ item.entityId }`;
-    itemElement.textContent = `${ item.name } `;
-    return itemElement;
+/**
+ * Get the locations through Promise callback and add some attributes to the list
+ * @param query
+ */
+function getLocations(query) {
+    return $.ajax({
+        url: '/api/locations?q=' + query,
+        type: 'get',
+        dataType: 'json',
+    }).done(function (data, textStatus, jqXhr) {
+        var newData = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i].entityLink = '/locations/' + data[i].id;
+            data[i].entityId = data[i].id;
+            data[i].id = '#' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+            newData.push(data[i]);
+        }
+        return newData;
+    })
+        .then(function (data) {
+            return data;
+        });
 }
 
-function MentionCustomization( editor ) {
+/**
+ * Customize the mention output to
+ * <a class="mention" data-mention="@Character" data-entity-id="1" href="/characters/1">@Character</a>
+ * @param editor
+ * @constructor
+ * @link https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#customizing-the-output
+ */
+function MentionCustomization(editor) {
     // The upcast converter will convert view <a class="mention" href="" data-user-id="">
     // elements to the model 'mention' text attribute.
-    editor.conversion.for( 'upcast' ).elementToAttribute( {
+    editor.conversion.for('upcast').elementToAttribute({
         view: {
             name: 'a',
             key: 'data-mention',
@@ -67,35 +94,35 @@ function MentionCustomization( editor ) {
                 // The mention feature expects that the mention attribute value
                 // in the model is a plain object with a set of additional attributes.
                 // In order to create a proper object use the toMentionAttribute() helper method:
-                const mentionAttribute = editor.plugins.get( 'Mention' ).toMentionAttribute( viewItem, {
+                const mentionAttribute = editor.plugins.get('Mention').toMentionAttribute(viewItem, {
                     // Add any other properties that you need.
-                    entityLink: viewItem.getAttribute( 'href' ),
-                    entityId: viewItem.getAttribute( 'data-entity-id' )
-                } );
+                    entityLink: viewItem.getAttribute('href'),
+                    entityId: viewItem.getAttribute('data-entity-id')
+                });
 
                 return mentionAttribute;
             }
         },
         converterPriority: 'high'
-    } );
+    });
 
     // Downcast the model 'mention' text attribute to a view <a> element.
-    editor.conversion.for( 'downcast' ).attributeToElement( {
+    editor.conversion.for('downcast').attributeToElement({
         model: 'mention',
-        view: ( modelAttributeValue, viewWriter ) => {
+        view: (modelAttributeValue, viewWriter) => {
             // Do not convert empty attributes (lack of value means no mention).
-            if ( !modelAttributeValue ) {
+            if (!modelAttributeValue) {
                 return;
             }
-            return viewWriter.createAttributeElement( 'a', {
+            return viewWriter.createAttributeElement('a', {
                 class: 'mention',
                 'data-mention': modelAttributeValue.id,
                 'data-entity-id': modelAttributeValue.entityId,
                 'href': modelAttributeValue.entityLink
-            } );
+            });
         },
         converterPriority: 'high'
-    } );
+    });
 }
 
 ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
@@ -106,7 +133,11 @@ ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
                 marker: '@',
                 feed: getCharacters,
                 minimumCharacters: 1,
-                itemRenderer: parseCharacter
+            },
+            {
+                marker: '#',
+                feed: getLocations,
+                minimumCharacters: 1,
             }
         ]
     }

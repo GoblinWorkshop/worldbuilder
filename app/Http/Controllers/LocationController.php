@@ -30,6 +30,24 @@ class LocationController extends Controller
     }
 
     /**
+     * @todo make a private api request routing
+     */
+    public function api_index() {
+        if (empty(request('q'))) {
+            return response()->json([]);
+        }
+        $locations = Location::query()
+            ->select([
+                'id',
+                'name'
+            ])
+            ->where('name', 'like', request('q') .'%')
+            ->limit(10)
+            ->get();
+        return response()->json($locations->toArray());
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

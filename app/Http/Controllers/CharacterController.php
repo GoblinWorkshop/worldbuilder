@@ -43,6 +43,9 @@ class CharacterController extends Controller
      * @todo make a private api request routing
      */
     public function api_index() {
+        if (empty(request('q'))) {
+            return response()->json([]);
+        }
         $characters = Character::query()
             ->select([
                 'id',
