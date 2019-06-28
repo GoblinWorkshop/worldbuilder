@@ -1,65 +1,132 @@
-import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
-import UploadAdapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
-import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
-import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
-import EasyImagePlugin from '@ckeditor/ckeditor5-easy-image/src/easyimage';
-import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
-import ImagePlugin from '@ckeditor/ckeditor5-image/src/image';
-import ImageCaptionPlugin from '@ckeditor/ckeditor5-image/src/imagecaption';
-import ImageStylePlugin from '@ckeditor/ckeditor5-image/src/imagestyle';
-import ImageToolbarPlugin from '@ckeditor/ckeditor5-image/src/imagetoolbar';
-import ImageUploadPlugin from '@ckeditor/ckeditor5-image/src/imageupload';
-import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
-import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CkeditorUpload from './CkeditorUpload';
 
-export default class ClassicEditor extends ClassicEditorBase {}
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        // Configure the URL to the upload script in your back-end here!
+        return new CkeditorUpload(loader);
+    };
+}
 
-ClassicEditor.builtinPlugins = [
-    EssentialsPlugin,
-    UploadAdapterPlugin,
-    AutoformatPlugin,
-    BoldPlugin,
-    ItalicPlugin,
-    BlockQuotePlugin,
-    EasyImagePlugin,
-    HeadingPlugin,
-    ImagePlugin,
-    ImageCaptionPlugin,
-    ImageStylePlugin,
-    ImageToolbarPlugin,
-    ImageUploadPlugin,
-    LinkPlugin,
-    ListPlugin,
-    ParagraphPlugin
-];
+/**
+ * Get the characters through Promise callback and add some attributes to the list
+ * @param query
+ */
+function getCharacters(query) {
+    return $.ajax({
+        url: '/api/characters?q=' + query,
+        type: 'get',
+        dataType: 'json',
+    }).done(function (data, textStatus, jqXhr) {
+        var newData = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i].entityLink = '/characters/' + data[i].id;
+            data[i].entityId = data[i].id;
+            data[i].id = '@' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+            newData.push(data[i]);
+        }
+        return newData;
+    })
+        .then(function (data) {
+            return data;
+        });
+}
 
-ClassicEditor.defaultConfig = {
-    toolbar: {
-        items: [
-            'heading',
-            '|',
-            'bold',
-            'italic',
-            'link',
-            'bulletedList',
-            'numberedList',
-            'imageUpload',
-            'blockQuote',
-            'undo',
-            'redo'
+/**
+ * Get the locations through Promise callback and add some attributes to the list
+ * @param query
+ */
+function getLocations(query) {
+    return $.ajax({
+        url: '/api/locations?q=' + query,
+        type: 'get',
+        dataType: 'json',
+    }).done(function (data, textStatus, jqXhr) {
+        var newData = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i].entityLink = '/locations/' + data[i].id;
+            data[i].entityId = data[i].id;
+            data[i].id = '#' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+            newData.push(data[i]);
+        }
+        return newData;
+    })
+        .then(function (data) {
+            return data;
+        });
+}
+
+/**
+ * Customize the mention output to
+ * <a class="mention" data-mention="@Character" data-entity-id="1" href="/characters/1">@Character</a>
+ * @param editor
+ * @constructor
+ * @link https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#customizing-the-output
+ */
+function MentionCustomization(editor) {
+    // The upcast converter will convert view <a class="mention" href="" data-user-id="">
+    // elements to the model 'mention' text attribute.
+    editor.conversion.for('upcast').elementToAttribute({
+        view: {
+            name: 'a',
+            key: 'data-mention',
+            classes: 'mention',
+            attributes: {
+                href: true,
+                'data-entity-id': true,
+            }
+        },
+        model: {
+            key: 'mention',
+            value: viewItem => {
+                // The mention feature expects that the mention attribute value
+                // in the model is a plain object with a set of additional attributes.
+                // In order to create a proper object use the toMentionAttribute() helper method:
+                const mentionAttribute = editor.plugins.get('Mention').toMentionAttribute(viewItem, {
+                    // Add any other properties that you need.
+                    entityLink: viewItem.getAttribute('href'),
+                    entityId: viewItem.getAttribute('data-entity-id')
+                });
+
+                return mentionAttribute;
+            }
+        },
+        converterPriority: 'high'
+    });
+
+    // Downcast the model 'mention' text attribute to a view <a> element.
+    editor.conversion.for('downcast').attributeToElement({
+        model: 'mention',
+        view: (modelAttributeValue, viewWriter) => {
+            // Do not convert empty attributes (lack of value means no mention).
+            if (!modelAttributeValue) {
+                return;
+            }
+            return viewWriter.createAttributeElement('a', {
+                class: 'mention',
+                'data-mention': modelAttributeValue.id,
+                'data-entity-id': modelAttributeValue.entityId,
+                'href': modelAttributeValue.entityLink
+            });
+        },
+        converterPriority: 'high'
+    });
+}
+
+ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
+    extraPlugins: [MyCustomUploadAdapterPlugin, MentionCustomization],
+    mention: {
+        feeds: [
+            {
+                marker: '@',
+                feed: getCharacters,
+                minimumCharacters: 1,
+            },
+            {
+                marker: '#',
+                feed: getLocations,
+                minimumCharacters: 1,
+            }
         ]
-    },
-    image: {
-        toolbar: [
-            'imageStyle:full',
-            'imageStyle:side',
-            '|',
-            'imageTextAlternative'
-        ]
-    },
-    language: 'en'
-};
+    }
+});
