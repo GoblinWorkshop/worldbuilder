@@ -8,6 +8,7 @@ use App\Location;
 use App\Organisation;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Kalnoy\Nestedset\Collection;
@@ -36,6 +37,21 @@ class CharacterController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * @todo make a private api request routing
+     */
+    public function api_index() {
+        $characters = Character::query()
+            ->select([
+                'id',
+                'name'
+            ])
+            ->where('name', 'like', request('q') .'%')
+            ->limit(10)
+            ->get();
+        return response()->json($characters->toArray());
     }
 
     /**

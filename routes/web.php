@@ -38,3 +38,8 @@ Route::resource('characters', 'CharacterController');
 Route::resource('organisations', 'OrganisationController');
 Route::resource('locations', 'LocationController');
 Route::resource('assets', 'AssetController');
+
+
+Route::prefix('api')->group(function () {
+    Route::get('characters', 'CharacterController@api_index');
+});
