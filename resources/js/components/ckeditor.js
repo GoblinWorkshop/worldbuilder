@@ -113,20 +113,29 @@ function MentionCustomization(editor) {
     });
 }
 
-ClassicEditor.create(document.querySelector("textarea[editor='rich']"), {
-    extraPlugins: [MyCustomUploadAdapterPlugin, MentionCustomization],
-    mention: {
-        feeds: [
-            {
-                marker: '@',
-                feed: getCharacters,
-                minimumCharacters: 1,
-            },
-            {
-                marker: '#',
-                feed: getLocations,
-                minimumCharacters: 1,
-            }
-        ]
-    }
-});
+var allRichEditors = document.querySelectorAll('textarea[editor=\'rich\']');
+for (var i = 0; i < allRichEditors.length; ++i) {
+    ClassicEditor.create(allRichEditors[i], {
+        extraPlugins: [MyCustomUploadAdapterPlugin, MentionCustomization],
+        mention: {
+            feeds: [
+                {
+                    marker: '@',
+                    feed: getCharacters,
+                    minimumCharacters: 1,
+                },
+                {
+                    marker: '#',
+                    feed: getLocations,
+                    minimumCharacters: 1,
+                }
+            ]
+        }
+    });
+}
+var allSimpleEditors = document.querySelectorAll('textarea[editor=\'simple\']');
+for (var i = 0; i < allSimpleEditors.length; ++i) {
+    ClassicEditor.create(allSimpleEditors[i], {
+        toolbar: ['bold', 'italic']
+    });
+}

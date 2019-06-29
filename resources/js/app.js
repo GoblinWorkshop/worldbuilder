@@ -8,9 +8,11 @@
  */
 
 require('./bootstrap');
+require ('./components/ckeditor');
+
+require('statblock5e/src/js/statblock5e');
 
 import select2 from 'select2';
-require ('./components/ckeditor');
 
 $(document).ready(function () {
     $("select[data-select='select2']").select2({

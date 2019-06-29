@@ -22,14 +22,16 @@ class CharacterController extends Controller
             'relatedModels' => [
                 'organisations' => 'App\\Organisation',
                 'characters' => 'App\\Character',
-                'locations' => 'App\Location'
+                'locations' => 'App\Location',
+                'races' => 'App\Race'
             ]
         ],
         'create' => [
             'relatedModels' => [
                 'organisations' => 'App\\Organisation',
                 'characters' => 'App\\Character',
-                'locations' => 'App\Location'
+                'locations' => 'App\Location',
+                'races' => 'App\Race'
             ]
         ]
     ];
@@ -83,10 +85,7 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        $character = new Character();
-        $character->name = $request->name;
-        $character->type = $request->type;
-        $character->location_id = $request->location_id;
+        $character = new Character($request);
         if (!empty($request->file('filename'))) {
             $character->filename = $request->file('filename')->store('public/characters');
         }
@@ -107,16 +106,14 @@ class CharacterController extends Controller
     {
         $character = Character::where('id', $id)
             ->first();
-        $character->name = $request->name;
-        $character->type = $request->type;
-        $character->location_id = $request->location_id;
+        $character->fill($request->all());
         if (!empty($request->file('filename'))) {
             if ($character->filename !== '') {
                 Storage::delete($character->filename);
             }
             $character->filename = $request->file('filename')->store('public/characters');
         }
-        $character->save();
+        $character->update();
         foreach ($request->input('relation') as $relation) {
             if (isset($relation['id']) && empty($relation['character_2_id'])) {
                 $character->relations()->where('id', $relation['id'])->delete();
