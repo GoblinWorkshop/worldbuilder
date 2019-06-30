@@ -17249,7 +17249,7 @@ readers do not read off random characters that represent icons */
   margin: 20px;
   max-width: 100%;
   width: 320px;
-  background: #FDF1DC;
+  background: #FDF1DC url(/images/background.jpg?8534f3229d344106dc1a2a77aebb0802) no-repeat top left;
   padding: 0 10px;
   box-shadow: 0 0 1.5em #867453;
   line-height: 1.2em;
@@ -17258,7 +17258,7 @@ readers do not read off random characters that represent icons */
 a[data-entity-type=character_block]:before, .stat-block:before {
   display: block;
   border: 1px solid #000;
-  background-color: #E69A28;
+  background: #E69A28 url(/images/background-border.jpg?12be09bcd0dd263dfdd916ce827f62c2) no-repeat top left;
   height: 5px;
   content: "";
   margin: 0 -15px;
@@ -17268,7 +17268,7 @@ a[data-entity-type=character_block]:before, .stat-block:before {
 a[data-entity-type=character_block]:after, .stat-block:after {
   display: block;
   border: 1px solid #000;
-  background-color: #E69A28;
+  background: #E69A28 url(/images/background-border.jpg?12be09bcd0dd263dfdd916ce827f62c2) no-repeat top left;
   height: 5px;
   content: "";
   margin: 0 -15px;

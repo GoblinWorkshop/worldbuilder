@@ -55,9 +55,6 @@
         @if (!empty($character->skills))
             <strong>{{__('Skills')}}</strong> {{$character->skills}}<br/>
         @endif
-        @if (!empty($character->saving_throws))
-            <strong>{{__('Saving Throws')}}</strong> {{$character->saving_throws}}<br/>
-        @endif
         @if (!empty($character->damage_vulnerabilities))
             <strong>{{__('Damage Vulnerabilities')}}</strong> {{$character->damage_vulnerabilities}}<br/>
         @endif
