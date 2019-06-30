@@ -1,7 +1,7 @@
 <div class="stat-block">
     @if (!empty($character->filename))
     <div class="stat-block-figure">
-        {!!  $character->thumbnail(null, 350, [
+        {!!  $character->thumbnail(null, 200, [
             ]) !!}
     </div>
     @endif

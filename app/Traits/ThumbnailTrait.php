@@ -16,7 +16,7 @@ trait ThumbnailTrait
             return '';
         }
         $acceptedSizes = [
-            0, 100, 200, 350, 500, 1000
+            0, 100, 200, 300, 500, 1000
         ];
         if ($width !== null && !in_array($width, $acceptedSizes)) {
             $width = 200;
@@ -35,7 +35,7 @@ trait ThumbnailTrait
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         $img = Image::make(storage_path('app') . '/'. $this->attributes['filename']);
-        if ($width > 0 & $height > 0) {
+        if ($width > 0 && $height > 0) {
             $img->fit($width, $height);
         }
         else {

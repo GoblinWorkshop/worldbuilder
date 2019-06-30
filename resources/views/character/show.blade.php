@@ -8,6 +8,5 @@
     @if ($item->article)
         <p>{{__('Article')}}: <a href="{{route('articles.show', $item->article->id)}}">{{$item->article->name}}</a></p>
     @endif
-    {!!$item->image!!}
     @include('character.stat-block', ['character' => $item])
 @endsection
