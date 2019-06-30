@@ -24,7 +24,11 @@ trait ThumbnailTrait
         if (!in_array($height, $acceptedSizes)) {
             $height = null;
         }
-        $tmpFilename = md5($width . $height . $this->attributes['filename']) . '.'. $this->file_extension;
+        $type = 'resize';
+        if ($width > 0 && $height > 0) {
+            $type = 'fit';
+        }
+        $tmpFilename = md5($type . $width . $height . $this->attributes['filename']) . '.'. $this->file_extension;
         $path = public_path('cache') . '/';
         $tmpFilepath = $path . $tmpFilename;
         $attributesHtml = '';
