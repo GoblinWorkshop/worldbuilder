@@ -8,7 +8,7 @@
 @section('header')
     <h1>{{__('Characters')}}</h1>
     <p class="text-muted">
-        {{ __('All characters in your game are located here. Each character might have multiple relations with other characters.') }}
+        {{ __('All characters and specific monsters in your game are located here. Each character might have multiple relations with other characters.') }}
     </p>
 @endsection
 @section('content')
@@ -21,7 +21,7 @@
                             {{$item->name}}
                         </a>
                     </div>
-                    {!!  $item->thumbnail(200) !!}
+                    {!!  $item->thumbnail(200, 200) !!}
                     <div class="card-footer text-muted">
                         <a href="{{route('characters.edit', $item->id)}}" class="btn btn-secondary">Edit</a>
                         <a href="{{route('characters.show', $item->id)}}" class="btn btn-secondary">View</a>

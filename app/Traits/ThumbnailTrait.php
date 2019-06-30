@@ -11,14 +11,14 @@ trait ThumbnailTrait
      * @param array $attributes html attributes for the <img> tag
      * @return string the <img> tag or empty string in case of errors
      */
-    public function thumbnail($width = 0, $height = null, $attributes = []) {
+    public function thumbnail($width = null, $height = null, $attributes = []) {
         if (empty($this->attributes['filename'])) {
             return '';
         }
         $acceptedSizes = [
-            0, 100, 200, 500, 1000
+            0, 100, 200, 350, 500, 1000
         ];
-        if (!in_array($width, $acceptedSizes)) {
+        if ($width !== null && !in_array($width, $acceptedSizes)) {
             $width = 200;
         }
         if (!in_array($height, $acceptedSizes)) {
@@ -35,7 +35,14 @@ trait ThumbnailTrait
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         $img = Image::make(storage_path('app') . '/'. $this->attributes['filename']);
-        $img->fit($width, $height);
+        if ($width > 0 & $height > 0) {
+            $img->fit($width, $height);
+        }
+        else {
+            $img->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
         if ($img->save($tmpFilepath)) {
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
