@@ -59,6 +59,16 @@ class CharacterController extends Controller
         return response()->json($characters->toArray());
     }
 
+    public function stat_block($id)
+    {
+        $character = Character::query()
+            ->where('id', $id)
+            ->firstOrFail();
+        return view('character.stat-block', [
+            'character' => $character
+        ]);
+    }
+
     /**
      * Generate a view for all relations of all characters
      */

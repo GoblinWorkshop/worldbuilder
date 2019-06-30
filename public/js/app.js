@@ -42816,6 +42816,21 @@ $(document).ready(function () {
   $("select[data-select='select2']").select2({
     theme: "bootstrap"
   });
+  var characterIds = [];
+  $('article [data-entity-type="character_block"]').each(function () {
+    var characterId = $(this).data('entity-id');
+
+    if (characterIds.indexOf(characterId) !== -1) {
+      return;
+    }
+
+    $.ajax({
+      url: '/characters/' + characterId + '/stats',
+      success: function (data) {
+        $(this).replaceWith(data);
+      }.bind(this)
+    });
+  });
 });
 
 /***/ }),

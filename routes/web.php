@@ -35,6 +35,7 @@ Route::get('/dashboard', function () {
 Route::get('/relations', 'CharacterController@relations')->name('characters.relations');
 Route::resource('articles', 'ArticleController');
 Route::resource('characters', 'CharacterController');
+Route::get('/characters/{id}/stats', 'CharacterController@stat_block');
 Route::resource('organisations', 'OrganisationController');
 Route::resource('locations', 'LocationController');
 Route::resource('assets', 'AssetController');
