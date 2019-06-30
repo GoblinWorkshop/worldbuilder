@@ -42724,441 +42724,6 @@ S2.define('jquery.select2',[
 
 /***/ }),
 
-/***/ "./node_modules/statblock5e/src/js/abilities-block.js":
-/*!************************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/abilities-block.js ***!
-  \************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-/* harmony import */ var _tapered_rule_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tapered-rule.js */ "./node_modules/statblock5e/src/js/tapered-rule.js");
-
-
-
-// Inline extraction START
-function abilityModifier(abilityScore) {
-  let score = parseInt(abilityScore, 10);
-  return Math.floor((score - 10) / 2);
-}
-
-function formattedModifier(abilityModifier) {
-  if (abilityModifier >= 0) {
-    return '+' + abilityModifier;
-  }
-  // This is an en dash, NOT a "normal" dash. The minus sign needs to be more
-  // visible.
-  return '–' + Math.abs(abilityModifier);
-}
-
-function abilityText(abilityScore) {
-  return [String(abilityScore),
-          ' (',
-          formattedModifier(abilityModifier(abilityScore)),
-          ')'].join('');
-}
-
-function elementClass(contentNode) {
-  return class extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({mode: 'open'})
-        .appendChild(contentNode.cloneNode(true));
-    }
-    connectedCallback() {
-      let root = this.shadowRoot;
-      for (let i = 0; i < this.attributes.length; i++) {
-        let attribute = this.attributes[i];
-        let abilityShortName = attribute.name.split('-')[1];
-        root.getElementById(abilityShortName).textContent =
-           abilityText(attribute.value);
-      }
-    }
-  }
-}
-// Inline extraction END
-
-let htmlContent  = '<style>\n' +
-    '  table {\n' +
-    '    width: 100%;\n' +
-    '    border: 0px;\n' +
-    '    border-collapse: collapse;\n' +
-    '  }\n' +
-    '  th, td {\n' +
-    '    width: 50px;\n' +
-    '    text-align: center;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<tapered-rule></tapered-rule>\n' +
-    '<table>\n' +
-    '  <tr>\n' +
-    '    <th>STR</th>\n' +
-    '    <th>DEX</th>\n' +
-    '    <th>CON</th>\n' +
-    '    <th>INT</th>\n' +
-    '    <th>WIS</th>\n' +
-    '    <th>CHA</th>\n' +
-    '  </tr>\n' +
-    '  <tr>\n' +
-    '    <td id="str"></td>\n' +
-    '    <td id="dex"></td>\n' +
-    '    <td id="con"></td>\n' +
-    '    <td id="int"></td>\n' +
-    '    <td id="wis"></td>\n' +
-    '    <td id="cha"></td>\n' +
-    '  </tr>\n' +
-    '</table>\n' +
-    '<tapered-rule></tapered-rule>';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('abilities-block', contentNode, elementClass);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/creature-heading.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/creature-heading.js ***!
-  \*************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-
-
-let htmlContent = '<style>\n' +
-    '  ::slotted(h1) {\n' +
-    '    font-family: \'Libre Baskerville\', \'Lora\', \'Calisto MT\',\n' +
-    '                 \'Bookman Old Style\', Bookman, \'Goudy Old Style\',\n' +
-    '                 Garamond, \'Hoefler Text\', \'Bitstream Charter\',\n' +
-    '                 Georgia, serif;\n' +
-    '    color: #7A200D;\n' +
-    '    font-weight: 700;\n' +
-    '    margin: 0px;\n' +
-    '    font-size: 23px;\n' +
-    '    letter-spacing: 1px;\n' +
-    '    font-variant: small-caps;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(h2) {\n' +
-    '    font-weight: normal;\n' +
-    '    font-style: italic;\n' +
-    '    font-size: 12px;\n' +
-    '    margin: 0;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<slot></slot>\n';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('creature-heading', contentNode);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/helpers/create-custom-element.js ***!
-  \**************************************************************************/
-/*! exports provided: createCustomElement */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCustomElement", function() { return createCustomElement; });
-function createCustomElement(name, contentNode, elementClass = null) {
-  if(elementClass === null) {
-    customElements.define(name,
-      class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({mode: 'open'})
-            .appendChild(contentNode.cloneNode(true));
-        }
-      }
-    )
-  } else {
-    customElements.define(name, elementClass(contentNode));
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/property-block.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/property-block.js ***!
-  \***********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-
-let htmlContent = '<style>\n' +
-    '  :host {\n' +
-    '    margin-top: 0.3em;\n' +
-    '    margin-bottom: 0.9em;\n' +
-    '    line-height: 1.5;\n' +
-    '    display: block;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(h4) {\n' +
-    '    margin: 0;\n' +
-    '    display: inline;\n' +
-    '    font-weight: bold;\n' +
-    '    font-style: italic;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(p:first-of-type) {\n' +
-    '    display: inline;\n' +
-    '    text-indent: 0;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(p) {\n' +
-    '    text-indent: 1em;\n' +
-    '    margin: 0;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<slot></slot>';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('property-block', contentNode);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/property-line.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/property-line.js ***!
-  \**********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-
-
-let htmlContent = '<style>\n' +
-    '  :host {\n' +
-    '    line-height: 1.4;\n' +
-    '    display: block;\n' +
-    '    text-indent: -1em;\n' +
-    '    padding-left: 1em;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(h4) {\n' +
-    '    margin: 0;\n' +
-    '    display: inline;\n' +
-    '    font-weight: bold;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(p:first-of-type) {\n' +
-    '    display: inline;\n' +
-    '    text-indent: 0;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(p) {\n' +
-    '    text-indent: 1em;\n' +
-    '    margin: 0;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<slot></slot>\n';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('property-line', contentNode);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/stat-block.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/stat-block.js ***!
-  \*******************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-
-
-let htmlContent = '<style>\n' +
-    '  .bar {\n' +
-    '    height: 5px;\n' +
-    '    background: #E69A28;\n' +
-    '    border: 1px solid #000;\n' +
-    '    position: relative;\n' +
-    '    z-index: 1;\n' +
-    '  }\n' +
-    '\n' +
-    '  :host {\n' +
-    '    display: inline-block;\n' +
-    '  }\n' +
-    '\n' +
-    '  #content-wrap {\n' +
-    '    font-family: \'Noto Sans\', \'Myriad Pro\', Calibri, Helvetica, Arial,\n' +
-    '                  sans-serif;\n' +
-    '    font-size: 13.5px;\n' +
-    '    background: #FDF1DC;\n' +
-    '    padding: 0.6em;\n' +
-    '    padding-bottom: 0.5em;\n' +
-    '    border: 1px #DDD solid;\n' +
-    '    box-shadow: 0 0 1.5em #867453;\n' +
-    '\n' +
-    '    /* We don\'t want the box-shadow in front of the bar divs. */\n' +
-    '    position: relative;\n' +
-    '    z-index: 0;\n' +
-    '\n' +
-    '    /* Leaving room for the two bars to protrude outwards */\n' +
-    '    margin-left: 2px;\n' +
-    '    margin-right: 2px;\n' +
-    '\n' +
-    '    /* This is possibly overriden by next CSS rule. */\n' +
-    '    width: 400px;\n' +
-    '\n' +
-    '    -webkit-columns: 400px;\n' +
-    '       -moz-columns: 400px;\n' +
-    '            columns: 400px;\n' +
-    '    -webkit-column-gap: 40px;\n' +
-    '       -moz-column-gap: 40px;\n' +
-    '            column-gap: 40px;\n' +
-    '\n' +
-    '    /* We can\'t use CSS3 attr() here because no browser currently supports it,\n' +
-    '       but we can use a CSS custom property instead. */\n' +
-    '    height: var(--data-content-height);\n' +
-    '\n' +
-    '    /* When height is constrained, we want sequential filling of columns. */\n' +
-    '    -webkit-column-fill: auto;\n' +
-    '       -moz-column-fill: auto;\n' +
-    '            column-fill: auto;\n' +
-    '  }\n' +
-    '\n' +
-    '  :host([data-two-column]) #content-wrap {\n' +
-    '    /* One column is 400px and the gap between them is 40px. */\n' +
-    '    width: 840px;\n' +
-    '  }\n' +
-    '\n' +
-    '  ::slotted(h3) {\n' +
-    '    border-bottom: 1px solid #7A200D;\n' +
-    '    color: #7A200D;\n' +
-    '    font-size: 21px;\n' +
-    '    font-variant: small-caps;\n' +
-    '    font-weight: normal;\n' +
-    '    letter-spacing: 1px;\n' +
-    '    margin: 0;\n' +
-    '    margin-bottom: 0.3em;\n' +
-    '\n' +
-    '    break-inside: avoid-column;\n' +
-    '    break-after: avoid-column;\n' +
-    '  }\n' +
-    '\n' +
-    '  /* For user-level p elems. */\n' +
-    '  ::slotted(p) {\n' +
-    '    margin-top: 0.3em;\n' +
-    '    margin-bottom: 0.9em;\n' +
-    '    line-height: 1.5;\n' +
-    '  }\n' +
-    '\n' +
-    '  /* Last child shouldn\'t have bottom margin, too much white space. */\n' +
-    '  ::slotted(*:last-child) {\n' +
-    '    margin-bottom: 0;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<div class="bar"></div>\n' +
-    '<div id="content-wrap">\n' +
-    '  <slot></slot>\n' +
-    '</div>\n' +
-    '<div class="bar"></div>';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('stat-block', contentNode);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/statblock5e.js":
-/*!********************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/statblock5e.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__ (/*! ./stat-block */ "./node_modules/statblock5e/src/js/stat-block.js");
-__webpack_require__ (/*! ./creature-heading */ "./node_modules/statblock5e/src/js/creature-heading.js");
-__webpack_require__ (/*! ./top-stats */ "./node_modules/statblock5e/src/js/top-stats.js");
-__webpack_require__ (/*! ./abilities-block */ "./node_modules/statblock5e/src/js/abilities-block.js");
-__webpack_require__ (/*! ./property-line */ "./node_modules/statblock5e/src/js/property-line.js");
-__webpack_require__ (/*! ./property-block */ "./node_modules/statblock5e/src/js/property-block.js");
-__webpack_require__ (/*! ./tapered-rule */ "./node_modules/statblock5e/src/js/tapered-rule.js");
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/tapered-rule.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/tapered-rule.js ***!
-  \*********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-
-
-let htmlContent = '<style>\n' +
-    '  svg {\n' +
-    '    fill: #922610;\n' +
-    '    /* Stroke is necessary for good antialiasing in Chrome. */\n' +
-    '    stroke: #922610;\n' +
-    '    margin-top: 0.6em;\n' +
-    '    margin-bottom: 0.35em;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '<svg height="5" width="400">\n' +
-    '  <polyline points="0,0 400,2.5 0,5"/>\n' +
-    '</svg>';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('tapered-rule', contentNode);
-
-
-/***/ }),
-
-/***/ "./node_modules/statblock5e/src/js/top-stats.js":
-/*!******************************************************!*\
-  !*** ./node_modules/statblock5e/src/js/top-stats.js ***!
-  \******************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/create-custom-element.js */ "./node_modules/statblock5e/src/js/helpers/create-custom-element.js");
-/* harmony import */ var _tapered_rule_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tapered-rule.js */ "./node_modules/statblock5e/src/js/tapered-rule.js");
-
-
-let htmlContent = '<style>\n' +
-    '  ::slotted(*) {\n' +
-    '    color: #7A200D;\n' +
-    '  }\n' +
-    '</style>\n' +
-    '\n' +
-    '<tapered-rule></tapered-rule>\n' +
-    '<slot></slot>\n' +
-    '<tapered-rule></tapered-rule>';
-    let contentNode =
-      document.createRange().createContextualFragment(htmlContent);
-    Object(_helpers_create_custom_element_js__WEBPACK_IMPORTED_MODULE_0__["createCustomElement"])('top-stats', contentNode);
-
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -43245,8 +42810,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/ckeditor */ "./resources/js/components/ckeditor.js");
-
-__webpack_require__(/*! statblock5e/src/js/statblock5e */ "./node_modules/statblock5e/src/js/statblock5e.js");
 
 
 $(document).ready(function () {
@@ -43471,11 +43034,19 @@ function MyCustomUploadAdapterPlugin(editor) {
 }
 /**
  * Get the characters through Promise callback and add some attributes to the list
+ * @param type either character or character_block
  * @param query
  */
 
 
-function getCharacters(query) {
+function getCharacters(type, query) {
+  type = type || 'character';
+  var symbol = '@';
+
+  if (type === 'character_block') {
+    symbol = '+';
+  }
+
   return $.ajax({
     url: '/api/characters?q=' + query,
     type: 'get',
@@ -43484,9 +43055,10 @@ function getCharacters(query) {
     var newData = [];
 
     for (var i = 0; i < data.length; i++) {
+      data[i].entityType = type;
       data[i].entityLink = '/characters/' + data[i].id;
       data[i].entityId = data[i].id;
-      data[i].id = '@' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+      data[i].id = symbol + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
 
       newData.push(data[i]);
     }
@@ -43511,6 +43083,7 @@ function getLocations(query) {
     var newData = [];
 
     for (var i = 0; i < data.length; i++) {
+      data[i].entityType = 'location';
       data[i].entityLink = '/locations/' + data[i].id;
       data[i].entityId = data[i].id;
       data[i].id = '#' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
@@ -43542,7 +43115,8 @@ function MentionCustomization(editor) {
       classes: 'mention',
       attributes: {
         href: true,
-        'data-entity-id': true
+        'data-entity-id': true,
+        'data-entity-type': true
       }
     },
     model: {
@@ -43554,7 +43128,8 @@ function MentionCustomization(editor) {
         var mentionAttribute = editor.plugins.get('Mention').toMentionAttribute(viewItem, {
           // Add any other properties that you need.
           entityLink: viewItem.getAttribute('href'),
-          entityId: viewItem.getAttribute('data-entity-id')
+          entityId: viewItem.getAttribute('data-entity-id'),
+          entityType: viewItem.getAttribute('data-entity-type')
         });
         return mentionAttribute;
       }
@@ -43574,6 +43149,7 @@ function MentionCustomization(editor) {
         "class": 'mention',
         'data-mention': modelAttributeValue.id,
         'data-entity-id': modelAttributeValue.entityId,
+        'data-entity-type': modelAttributeValue.entityType,
         'href': modelAttributeValue.entityLink
       });
     },
@@ -43588,8 +43164,12 @@ for (var i = 0; i < allRichEditors.length; ++i) {
     extraPlugins: [MyCustomUploadAdapterPlugin, MentionCustomization],
     mention: {
       feeds: [{
+        marker: '+',
+        feed: getCharacters.bind(undefined, 'character_block'),
+        minimumCharacters: 1
+      }, {
         marker: '@',
-        feed: getCharacters,
+        feed: getCharacters.bind(undefined, 'character'),
         minimumCharacters: 1
       }, {
         marker: '#',

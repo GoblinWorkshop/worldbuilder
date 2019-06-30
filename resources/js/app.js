@@ -10,8 +10,6 @@
 require('./bootstrap');
 require ('./components/ckeditor');
 
-require('statblock5e/src/js/statblock5e');
-
 import select2 from 'select2';
 
 $(document).ready(function () {

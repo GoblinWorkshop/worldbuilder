@@ -17242,29 +17242,7 @@ readers do not read off random characters that represent icons */
 }
 
 /* Inspired by https://codepen.io/retractedhack/pen/gPLpWe */
-.stat-block:before {
-  display: block;
-  border: 1px solid #000;
-  background-color: #E69A28;
-  height: 5px;
-  content: "";
-  margin: -10px -10px 0;
-  box-sizing: initial;
-}
-
-.stat-block:after {
-  position: relative;
-  top: 10px;
-  display: block;
-  border: 1px solid #000;
-  background-color: #E69A28;
-  height: 5px;
-  content: "";
-  margin: 0 -10px;
-  box-sizing: initial;
-}
-
-.stat-block {
+.stat-block, a[data-entity-type=character_block] {
   font-family: "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
   color: #000;
   margin: 20px;
@@ -17276,6 +17254,29 @@ readers do not read off random characters that represent icons */
   box-shadow: 0 0 1.5em #867453;
   line-height: 1.2em;
 }
+
+a[data-entity-type=character_block]:before, .stat-block:before {
+  display: block;
+  border: 1px solid #000;
+  background-color: #E69A28;
+  height: 5px;
+  content: "";
+  margin: -10px -15px 0;
+  box-sizing: initial;
+}
+
+a[data-entity-type=character_block]:after, .stat-block:after {
+  position: relative;
+  top: 10px;
+  display: block;
+  border: 1px solid #000;
+  background-color: #E69A28;
+  height: 5px;
+  content: "";
+  margin: 0 -15px;
+  box-sizing: initial;
+}
+
 .stat-block .stat-block-heading h1 {
   font-family: "Libre Baskerville", "Lora", "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
   color: #922610;

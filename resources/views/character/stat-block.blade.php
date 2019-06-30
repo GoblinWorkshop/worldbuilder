@@ -4,7 +4,7 @@
         <small>{{$character->subheading_label}}</small>
     </div>
     <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
+        <polyline points="0,0 300,2.5 0,5"></polyline>
     </svg>
     <div class="stat-block-red">
         @if (!empty($character->armor_class))
@@ -17,7 +17,7 @@
             {{$character->speed_labels}}
     </div>
     <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
+        <polyline points="0,0 300,2.5 0,5"></polyline>
     </svg>
     <div class="stat-block-abilities">
         <div class="ability ability-str">
@@ -46,7 +46,7 @@
         </div>
     </div>
     <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
+        <polyline points="0,0 300,2.5 0,5"></polyline>
     </svg>
     <div class="stat-block-red">
         @if (!empty($character->saving_throws))
@@ -79,29 +79,29 @@
         @endif
     </div>
     <svg height="5" width="100%" class="tapered-rule">
-        <polyline points="0,0 400,2.5 0,5"></polyline>
+        <polyline points="0,0 300,2.5 0,5"></polyline>
     </svg>
     @if (!empty($character->special_traits))
     <div class="stat-block-black">
-        @html($character->special_traits)
+        {!! clean($character->special_traits) !!}
     </div>
     @endif
     @if (!empty($character->actions))
         <h2>{{__('Actions')}}</h2>
         <div class="stat-block-black">
-            @html($character->actions)
+            {!! clean($character->actions) !!}
         </div>
     @endif
     @if (!empty($character->reactions))
         <h2>{{__('Reactions')}}</h2>
         <div class="stat-block-black">
-            @html($character->reactions)
+            {!! clean($character->reactions) !!}
         </div>
     @endif
     @if (!empty($character->legendary_actions))
         <h2>{{__('Legendary Actions')}}</h2>
         <div class="stat-block-black">
-            @html($character->legendary_actions)
+            {!! clean($character->legendary_actions) !!}
         </div>
     @endif
 </div>

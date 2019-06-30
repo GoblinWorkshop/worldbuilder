@@ -12,6 +12,6 @@
     @endswitch
 @endsection
 @section('content')
-@html($item->content)
+{!! clean($item->content) !!}
 {!!$item->image!!}
 @endsection

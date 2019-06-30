@@ -10,9 +10,15 @@ function MyCustomUploadAdapterPlugin(editor) {
 
 /**
  * Get the characters through Promise callback and add some attributes to the list
+ * @param type either character or character_block
  * @param query
  */
-function getCharacters(query) {
+function getCharacters(type, query) {
+    type = type || 'character';
+    let symbol = '@';
+    if (type === 'character_block') {
+        symbol = '+';
+    }
     return $.ajax({
         url: '/api/characters?q=' + query,
         type: 'get',
@@ -20,9 +26,10 @@ function getCharacters(query) {
     }).done(function (data, textStatus, jqXhr) {
         var newData = [];
         for (var i = 0; i < data.length; i++) {
+            data[i].entityType = type;
             data[i].entityLink = '/characters/' + data[i].id;
             data[i].entityId = data[i].id;
-            data[i].id = '@' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
+            data[i].id = symbol + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
             newData.push(data[i]);
         }
         return newData;
@@ -44,6 +51,7 @@ function getLocations(query) {
     }).done(function (data, textStatus, jqXhr) {
         var newData = [];
         for (var i = 0; i < data.length; i++) {
+            data[i].entityType = 'location';
             data[i].entityLink = '/locations/' + data[i].id;
             data[i].entityId = data[i].id;
             data[i].id = '#' + data[i].name; // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/support/error-codes.html#error-mentioncommand-incorrect-id
@@ -74,6 +82,7 @@ function MentionCustomization(editor) {
             attributes: {
                 href: true,
                 'data-entity-id': true,
+                'data-entity-type': true,
             }
         },
         model: {
@@ -85,7 +94,8 @@ function MentionCustomization(editor) {
                 const mentionAttribute = editor.plugins.get('Mention').toMentionAttribute(viewItem, {
                     // Add any other properties that you need.
                     entityLink: viewItem.getAttribute('href'),
-                    entityId: viewItem.getAttribute('data-entity-id')
+                    entityId: viewItem.getAttribute('data-entity-id'),
+                    entityType: viewItem.getAttribute('data-entity-type')
                 });
 
                 return mentionAttribute;
@@ -106,6 +116,7 @@ function MentionCustomization(editor) {
                 class: 'mention',
                 'data-mention': modelAttributeValue.id,
                 'data-entity-id': modelAttributeValue.entityId,
+                'data-entity-type': modelAttributeValue.entityType,
                 'href': modelAttributeValue.entityLink
             });
         },
@@ -120,8 +131,13 @@ for (var i = 0; i < allRichEditors.length; ++i) {
         mention: {
             feeds: [
                 {
+                    marker: '+',
+                    feed: getCharacters.bind(this, 'character_block'),
+                    minimumCharacters: 1,
+                },
+                {
                     marker: '@',
-                    feed: getCharacters,
+                    feed: getCharacters.bind(this, 'character'),
                     minimumCharacters: 1,
                 },
                 {

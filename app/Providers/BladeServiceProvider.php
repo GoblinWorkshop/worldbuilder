@@ -33,9 +33,5 @@ class BladeServiceProvider extends ServiceProvider
             'type' => 'password'
         ]]);
         FormBuilder::component('mySubmit', 'components.form.submit', ['value' => __('Save'), 'attributes' => []]);
-
-        Blade::directive('html', function ($unsafeHtml) {
-            return "<?php echo html($unsafeHtml); ?>";
-        });
     }
 }
