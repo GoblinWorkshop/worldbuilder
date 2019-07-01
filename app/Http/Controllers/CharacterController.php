@@ -95,7 +95,7 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        $character = new Character($request);
+        $character = new Character($request->toArray());
         if (!empty($request->file('filename'))) {
             $character->filename = $request->file('filename')->store('public/characters');
         }
