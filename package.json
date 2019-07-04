@@ -27,8 +27,5 @@
         "select2-theme-bootstrap4": "^0.2.0-beta.3",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
-    },
-    "dependencies": {
-        "@ckeditor/ckeditor5-mention": "^11.0.0"
     }
 }

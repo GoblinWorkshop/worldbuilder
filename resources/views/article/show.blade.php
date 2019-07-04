@@ -9,6 +9,9 @@
         @case('locations')
         @include('location.summary', ['location' => $item->location])
         @break
+        @case('characters')
+        @include('character.summary', ['character' => $item->character])
+        @break
     @endswitch
 @endsection
 @section('content')

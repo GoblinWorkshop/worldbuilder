@@ -13,7 +13,7 @@
 a[data-entity-type="character_block"]:before, .stat-block-content:before {
   display: block;
   border: 1px solid #000;
-  background: #E69A28 url('../../public/img/app/stat-block/background-border.jpg') no-repeat top left;
+  background: #E69A28 url('../../../public/img/app/stat-block/background-border.jpg') no-repeat top left;
   height: 5px;
   content: "";
   margin: 0 -15px;
@@ -22,7 +22,7 @@ a[data-entity-type="character_block"]:before, .stat-block-content:before {
 a[data-entity-type="character_block"]:after, .stat-block-content:after {
   display: block;
   border: 1px solid #000;
-  background: #E69A28 url('../../public/img/app/stat-block/background-border.jpg') no-repeat top left;
+  background: #E69A28 url('../../../public/img/app/stat-block/background-border.jpg') no-repeat top left;
   height: 5px;
   content: "";
   margin: 0 -15px;
@@ -35,7 +35,7 @@ a[data-entity-type="character_block"]:after, .stat-block-content:after {
     text-align: center;
     width: 100%;
     height: 320px;
-    background: url('../../public/img/app/stat-block/background-image.png') no-repeat bottom center;
+    background: url('../../../public/img/app/stat-block/background-image.png') no-repeat bottom center;
     background-size: 100% auto;
     img {
       position: absolute;
@@ -47,7 +47,7 @@ a[data-entity-type="character_block"]:after, .stat-block-content:after {
     }
   }
   .stat-block-content {
-    background: #FDF1DC url('../../public/img/app/stat-block/background.jpg') no-repeat top left;
+    background: #FDF1DC url('../../../public/img/app/stat-block/background.jpg') no-repeat top left;
     padding: 0 10px;
     box-shadow: 0 0 1.5em #867453;
   }

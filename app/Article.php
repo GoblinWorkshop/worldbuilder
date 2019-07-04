@@ -75,4 +75,11 @@ class Article extends Model
     public function location() {
         return $this->belongsTo('App\Location', 'foreign_id');
     }
+
+    /**
+     * Retrieve the location of this article
+     */
+    public function character() {
+        return $this->belongsTo('App\Character', 'foreign_id');
+    }
 }

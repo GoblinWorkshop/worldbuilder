@@ -11,11 +11,10 @@
 <body class="bg-black text-light">
 <div id="app">
     @yield('nav', View::make('nav.site'))
-    @yield('breadcrumbs')
-
-    <main class="py-4">
+    <main>
         @yield('content')
     </main>
 </div>
+@include('components.footer')
 </body>
 </html>

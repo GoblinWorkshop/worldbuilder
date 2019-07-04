@@ -15,7 +15,8 @@ For logged in users in their account
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
 
-@import 'stat-block';
+@import 'components/stat-block';
+@import 'components/footer';
 
 body {
   padding-top: 56px;

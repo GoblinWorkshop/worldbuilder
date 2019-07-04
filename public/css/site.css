@@ -10215,6 +10215,12 @@ h3 {
     border-color: #dee2e6;
   }
 }
+footer {
+  font-size: 80%;
+  background-color: rgba(155, 155, 155, 0.1);
+  padding: 10px 0;
+}
+
 body {
   padding-top: 56px;
 }

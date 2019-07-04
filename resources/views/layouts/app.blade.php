@@ -21,13 +21,14 @@
                 @yield('content')
             </div>
             @hasSection('sidebar')
-                <div class="col-2">
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
                     @yield('sidebar')
                 </div>
             @endif
         </div>
     </div>
 </div>
+@include('components.footer')
 @stack('scripts')
 </body>
 </html>

@@ -9,9 +9,13 @@
                     gaming table!
                 </p>
                 <hr class="my-4 border-secondary">
+                @auth
+                    <a href="{{route('articles.index')}}" class="btn btn-primary btn-lg" role="button">Dashboard</a>
+                    @else
                 <p>Create a free account and start using the platform.</p>
                 <a href="/register" class="btn btn-primary btn-lg" role="button">Create account</a>
                 <a href="/login" class="btn btn-secondary btn-lg">Login</a>
+                    @endif
             </div>
             <div class="col-6 my-auto">
                 <img src="/img/site/green-eyed-dragon-iguana.jpg" class="img-fluid" alt=""/>
