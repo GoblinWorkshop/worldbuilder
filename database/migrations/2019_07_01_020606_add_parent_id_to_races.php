@@ -13,9 +13,11 @@ class AddParentIdToRaces extends Migration
      */
     public function up()
     {
-        Schema::table('races', function (Blueprint $table) {
-            $table->bigInteger('parent_id')->nullable();
-        });
+        if (!Schema::hasColumn('races', 'parent_id')) {
+            Schema::table('races', function (Blueprint $table) {
+                $table->bigInteger('parent_id')->nullable();
+            });
+        }
         $now = new DateTime();
         // Races from http://www.npcgenerator.com/
         \Illuminate\Support\Facades\DB::table('races')->insert([
