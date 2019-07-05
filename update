@@ -8,7 +8,8 @@ composer update --no-dev
 composer dump-autoload
 echo "Migrating database..."
 php artisan migrate
-echo "Running Prod versions of files"
+echo "Running npm update en prod run"
+npm update
 npm run prod
 echo "Clear app cache..."
 php artisan optimize
