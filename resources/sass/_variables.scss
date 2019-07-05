@@ -16,6 +16,7 @@ $text-muted: darken(map-get($theme-colors, light), 30%);
 $breadcrumb-bg: transparent;
 $breadcrumb-padding-y:              .25rem;
 $breadcrumb-padding-x: 0;
+$breadcrumb-active-color: map-get($theme-colors, light);
 
 /**
 Pagination

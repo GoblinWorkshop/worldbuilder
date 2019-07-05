@@ -2,7 +2,7 @@
 @section('breadcrumbs', Breadcrumbs::render('articles.index'))
 @section('header')
     <h1>{{__('Articles')}}</h1>
-    <p class="text-muted">{{__('Articles are is the content for each location, character, organisation e.t.c.')}}</p>
+    <p class="text-muted">{{__('Articles are the content for each entity (e.g. location, character, organisation e.t.c.). To make a generic article click on "new". To create an article about an entity use the menu on the top and create it from there. Articles will be added automatically when you create a new entity.')}}</p>
 @endsection
 @section('sidebar')
     <a href="{{url('/articles/create')}}" class="btn btn-secondary">New</a><br />

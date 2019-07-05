@@ -10,21 +10,26 @@
 </head>
 <body class="bg-black text-light">
 @yield('nav', View::make('nav.app'))
-<div class="container-fluid">
-@yield('breadcrumbs')
-@yield('header')
-</div>
-<div id="app" class="pt-4">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                @yield('content')
-            </div>
-            @hasSection('sidebar')
-                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
-                    @yield('sidebar')
+<div class="main-background"
+     @if(View::hasSection('background')) style="background-image: url(@yield('background'));"@endif>
+    <div class="main-content">
+        <div class="container-fluid">
+            @yield('breadcrumbs')
+            @yield('header')
+        </div>
+        <div id="app" class="pt-4">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        @yield('content')
+                    </div>
+                    @hasSection('sidebar')
+                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
+                            @yield('sidebar')
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 </div>

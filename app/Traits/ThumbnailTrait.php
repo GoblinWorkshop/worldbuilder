@@ -36,6 +36,9 @@ trait ThumbnailTrait
             $attributesHtml .= ' '. $key .'="'. $value .'"';
         }
         if (is_file($tmpFilepath)) {
+            if (isset($attributes['returnUrl'])) {
+                return asset('/cache/'. $tmpFilename);
+            }
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         $img = Image::make(storage_path('app') . '/'. $this->attributes['filename']);
@@ -48,6 +51,9 @@ trait ThumbnailTrait
             });
         }
         if ($img->save($tmpFilepath)) {
+            if (isset($attributes['returnUrl'])) {
+                return asset('/cache/'. $tmpFilename);
+            }
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
         return '';
