@@ -16,6 +16,7 @@ php artisan cache:clear
 php artisan route:cache
 php artisan view:clear
 php artisan config:cache
+php artisan cache:custom
 echo "Set update script executable..."
 chmod 0700 update
 echo "Permissions for storage"
