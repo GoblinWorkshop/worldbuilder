@@ -29,4 +29,17 @@ $(document).ready(function () {
             }).bind(this)
         })
     });
+    let spellNames = [];
+    $('article [data-entity-type="spell_block"]').each(function () {
+        let spellName = $(this).data('entity-id');
+        if (spellNames.indexOf(spellName) !== -1) {
+            return;
+        }
+        $.ajax({
+            url: '/spells/' + spellName + '/stats',
+            success: (function (data) {
+                $(this).replaceWith(data);
+            }).bind(this)
+        })
+    });
 });

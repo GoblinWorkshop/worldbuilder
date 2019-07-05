@@ -40,6 +40,9 @@ Route::resource('organisations', 'OrganisationController');
 Route::resource('locations', 'LocationController');
 Route::resource('assets', 'AssetController');
 
+Route::get('/spells/{name}', 'SpellController@view');
+Route::get('/spells/{name}/stats', 'SpellController@stat_block');
+
 
 Route::prefix('api')->group(function () {
     Route::get('characters', 'CharacterController@api_index');

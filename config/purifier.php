@@ -70,7 +70,6 @@ return [
 					'src' => 'URI',
 					'type' => 'Text',
                 ]],
-
 				// http://developers.whatwg.org/text-level-semantics.html
                 ['s',    'Inline', 'Inline', 'Common'],
                 ['var',  'Inline', 'Inline', 'Common'],
@@ -95,8 +94,8 @@ return [
         ],
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
-            ['a', 'data-entity-id', 'Number'],
-            ['a', 'data-entity-type', 'Enum#location,character,character_block'],
+            ['a', 'data-entity-id', 'Text'],
+            ['a', 'data-entity-type', 'Enum#location,character,character_block,spell,spell_block'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],

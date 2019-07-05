@@ -1,0 +1,56 @@
+$spellColor: #c03e2e;
+.spell-block, .a[data-entity-type="spell_block"] {
+  display: block;
+  font-family: "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
+  color: #000;
+  margin: 20px;
+  max-width: 100%;
+  width: 320px;
+  line-height: 1.2em;
+  background-color: $spellColor;
+  padding: 15px;
+}
+.spell-block {
+  h1 {
+    background-color: #fff;
+    text-align: center;
+    font-variant: all-small-caps;
+    margin: 0;
+    padding: 5px 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .spell-bg-red {
+    color: #fff;
+    text-align: center;
+  }
+  .spell-block-stats {
+  }
+  .spell-block-stats .stat {
+    padding: 5px 10px;
+    background-color: #fff;
+    float: left;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .spell-block-stats .stat:nth-child(1), .stat:nth-child(2) {
+    border-bottom: 2px solid $spellColor;
+  }
+  .spell-block-stats .stat:nth-child(1), .stat:nth-child(3) {
+    border-right: 2px solid $spellColor;
+  }
+  .stat h2 {
+    margin: 0;
+    color: #c03e2e;
+    font-variant: all-small-caps;
+  }
+  .spell-block-description {
+    clear: both;
+    border-top: 15px solid $spellColor;
+    background-color: #fff;
+    padding: 5px 10px;
+    white-space: pre-wrap;
+  }
+}
