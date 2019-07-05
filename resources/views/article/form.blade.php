@@ -11,14 +11,6 @@
         @include('character.summary', ['character' => $item->character])
         @break
     @endswitch
-    <h3>{{__('Editor tips')}}</h3>
-    <p>{{__('Use the following code to insert specific content such as locations and characters.')}}</p>
-    <ul>
-        <li>{{__(':code will insert a link to the character page.', ['code' => '@CharacterName'])}}</li>
-        <li>{{__(':code will insert a link to the location page.', ['code' => '#LocationName'])}}</li>
-        <li>{{__(':code will insert a dynamic stat block of the character.', ['code' => '+CharacterName'])}}</li>
-        <li>{{__(':code will insert a dynamic stat block of the spell.', ['code' => '!SpellName'])}}</li>
-    </ul>
 @endsection
 @endif
 @section('content')
@@ -31,8 +23,14 @@
                 {!! Form::open(['url' => Route('articles.store'), 'files' => true]) !!}
             @endif
             {{ Form::myText('name') }}
-            {{ Form::myTextarea('content', null, ['editor' => 'rich']) }}
-            {{ Form::myFile('filename') }}
+                {{ Form::myFile('filename', [
+                'label' => __('Image'),
+                'help' => __('Will be displayed as header or in the article list.')
+                ]) }}
+            {{ Form::myTextarea('content', null, [
+            'editor' => 'rich',
+            'help' => __('You can use shortcuts like @CharacterName, #LocationName, +CharacterName or !SpellName to insert dynamic content and link to the specific entities.')
+            ]) }}
             {{ Form::mySubmit(__('Save')) }}
             {!! Form::close() !!}
         </div>
