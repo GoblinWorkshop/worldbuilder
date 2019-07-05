@@ -9,7 +9,7 @@
                     <a href="https://goblinworkshop.net" target="_blank">Goblin Workshop</a> |
                     <a href="https://github.com/goblinworkshop/worldbuilder" target="_blank">Github</a> |
                     <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> |
-                    <a href="http://www.opengamingfoundation.org/ogl.html" target="_blank">Open Game License</a>
+                    <a href="http://www.opengamingfoundation.org/ogl.html" target="_blank">Open Game License</a> |
                 </p>
             </div>
         </div>

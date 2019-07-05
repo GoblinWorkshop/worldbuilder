@@ -17,6 +17,7 @@
         <li>{{__(':code will insert a link to the character page.', ['code' => '@CharacterName'])}}</li>
         <li>{{__(':code will insert a link to the location page.', ['code' => '#LocationName'])}}</li>
         <li>{{__(':code will insert a dynamic stat block of the character.', ['code' => '+CharacterName'])}}</li>
+        <li>{{__(':code will insert a dynamic stat block of the spell.', ['code' => '!SpellName'])}}</li>
     </ul>
 @endsection
 @endif

@@ -3,7 +3,7 @@
         <div class="spell-block-heading">
             <h1>{{$spell->name}}</h1>
             <div class="spell-bg-red">
-                {{$spell->level}}
+                {{$spell->type}}
             </div>
         </div>
         <div class="spell-block-stats">

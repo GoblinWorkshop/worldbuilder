@@ -1,7 +1,15 @@
 $spellColor: #c03e2e;
-.spell-block, .a[data-entity-type="spell_block"] {
+@font-face {
+  font-family: 'DM Serif Display';
+  src: url('../../fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf')  format('truetype');
+}
+@font-face {
+  font-family: 'Patua One';
+  src: url('../../fonts/Patua_One/PatuaOne-Regular.ttf')  format('truetype');
+}
+
+.spell-block, a[data-entity-type="spell_block"] {
   display: block;
-  font-family: "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
   color: #000;
   margin: 20px;
   max-width: 100%;
@@ -12,6 +20,8 @@ $spellColor: #c03e2e;
 }
 .spell-block {
   h1 {
+    font-family: "DM Serif Display", "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
+    font-size: 28px;
     background-color: #fff;
     text-align: center;
     font-variant: all-small-caps;
@@ -21,6 +31,7 @@ $spellColor: #c03e2e;
     border-top-right-radius: 10px;
   }
   .spell-bg-red {
+    font-size: 80%;
     color: #fff;
     text-align: center;
   }
@@ -42,12 +53,16 @@ $spellColor: #c03e2e;
     border-right: 2px solid $spellColor;
   }
   .stat h2 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 22px;
+    font-family: "Patua One", serif;
     margin: 0;
     color: #c03e2e;
     font-variant: all-small-caps;
   }
   .spell-block-description {
-    clear: both;
+    clear: left;
     border-top: 15px solid $spellColor;
     background-color: #fff;
     padding: 5px 10px;

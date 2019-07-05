@@ -17360,6 +17360,73 @@ a[data-entity-type=character_block]:after, .stat-block-content:after {
   margin: 5px 0;
 }
 
+@font-face {
+  font-family: "DM Serif Display";
+  src: url(/fonts/DMSerifDisplay-Regular.ttf?c66d4905afa5479b3e1a3d39896b49e5) format("truetype");
+}
+@font-face {
+  font-family: "Patua One";
+  src: url(/fonts/PatuaOne-Regular.ttf?659b9d83cc8f111e82e5ee04d0574533) format("truetype");
+}
+.spell-block, a[data-entity-type=spell_block] {
+  display: block;
+  color: #000;
+  margin: 20px;
+  max-width: 100%;
+  width: 320px;
+  line-height: 1.2em;
+  background-color: #c03e2e;
+  padding: 15px;
+}
+
+.spell-block h1 {
+  font-family: "DM Serif Display", "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  background-color: #fff;
+  text-align: center;
+  font-variant: all-small-caps;
+  margin: 0;
+  padding: 5px 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.spell-block .spell-bg-red {
+  font-size: 80%;
+  color: #fff;
+  text-align: center;
+}
+.spell-block .spell-block-stats .stat {
+  padding: 5px 10px;
+  background-color: #fff;
+  float: left;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.spell-block .spell-block-stats .stat:nth-child(1), .spell-block .stat:nth-child(2) {
+  border-bottom: 2px solid #c03e2e;
+}
+.spell-block .spell-block-stats .stat:nth-child(1), .spell-block .stat:nth-child(3) {
+  border-right: 2px solid #c03e2e;
+}
+.spell-block .stat h2 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 22px;
+  font-family: "Patua One", serif;
+  margin: 0;
+  color: #c03e2e;
+  font-variant: all-small-caps;
+}
+.spell-block .spell-block-description {
+  clear: left;
+  border-top: 15px solid #c03e2e;
+  background-color: #fff;
+  padding: 5px 10px;
+  white-space: pre-wrap;
+}
+
 footer {
   font-size: 80%;
   background-color: rgba(155, 155, 155, 0.1);
