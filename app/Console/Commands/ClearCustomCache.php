@@ -19,7 +19,7 @@ class ClearCustomCache extends Command
      *
      * @var string
      */
-    protected $description = 'Clears the cache for e.g. HTML purifier.';
+    protected $description = 'Clears the cache for e.g. HTML purifier and cached images.';
 
     /**
      * Create a new command instance.
@@ -40,5 +40,6 @@ class ClearCustomCache extends Command
     {
         $FileSystem = new Filesystem();
         $FileSystem->cleanDirectory(storage_path('app/purifier'));
+        $FileSystem->cleanDirectory(public_path('cache'));
     }
 }
