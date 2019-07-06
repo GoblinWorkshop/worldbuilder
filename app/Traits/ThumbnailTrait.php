@@ -15,14 +15,14 @@ trait ThumbnailTrait
         if (empty($this->attributes['filename'])) {
             return '';
         }
-        if ($width !== null && $width > 0 && $width <= 1920) {
+        if ($width !== null && ($width < 0 || $width > 1920)) {
             $width = 200;
         }
-        if ($height !== null && $height > 0 && $height < 1920) {
-            $height = 200;
+        if ($height !== null && ($height < 0 || $height > 1920)) {
+            $width = 200;
         }
         if ($width === null && $height === null) {
-            $width = 200;
+            return '';
         }
         $type = 'resize';
         if ($width > 0 && $height > 0) {
