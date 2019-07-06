@@ -14,7 +14,7 @@ class ChangeTypeForCharacters extends Migration
     public function up()
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->string('type')->nullable();
+            $table->string('type')->nullable()->change();
         });
     }
 
