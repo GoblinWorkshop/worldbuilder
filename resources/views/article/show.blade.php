@@ -17,5 +17,4 @@
 @endsection
 @section('content')
 <article>{!! clean($item->content) !!}</article>
-{!!$item->image!!}
 @endsection

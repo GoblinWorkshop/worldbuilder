@@ -9,7 +9,6 @@
 
 require('./bootstrap');
 require('./components/ckeditor');
-
 import select2 from 'select2';
 
 $(document).ready(function () {

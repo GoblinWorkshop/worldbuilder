@@ -110,12 +110,13 @@ class Character extends Model
     public function getSizesAttribute()
     {
         return [
-            'tiny' => __('Tiny'),
-            'small' => __('Small'),
-            'medium' => __('Medium'),
-            'large' => __('Large'),
-            'huge' => __('Huge'),
-            'gargantuan' => __('Gargantuan')
+            'tiny' => __('Tiny (-2 ft.)'),
+            'small' => __('Small (2-4 ft.)'),
+            'medium' => __('Medium (4-8 ft.)'),
+            'large' => __('Large (8-16 ft.)'),
+            'huge' => __('Huge (16-32 ft.)'),
+            'gargantuan' => __('Gargantuan (32-64 ft.)'),
+            'colossal' => __('Colossal (64+ ft.)')
         ];
     }
 
