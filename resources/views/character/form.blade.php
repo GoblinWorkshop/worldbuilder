@@ -3,7 +3,20 @@
 @section('header')
     <h1>{{$item->name??__('Unnamed character')}}</h1>
 @endsection
+@section('options')
+    @if( $item->exists )
+    <a href="{{route('characters.show', $item->id)}}" class="btn btn-secondary">{{__('Back')}}</a>
+    @else
+        <a href="{{route('characters.index')}}" class="btn btn-secondary">{{__('Back')}}</a>
+    @endif
+    <a href="#save" class="btn btn-primary" onclick="$('form#entity-form').submit();">{{__('Save')}}</a>
+@endsection
 @section('content')
+    @if( $item->exists )
+        {!! Form::model($item, ['id' => 'entity-form', 'method' => 'put', 'files' => true, 'route' => ['characters.update', $item->id]]) !!}
+    @else
+        {!! Form::open(['id' => 'entity-form', 'url' => Route('characters.store'), 'files' => true]) !!}
+    @endif
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab"
@@ -24,14 +37,9 @@
             </a>
         </li>
     </ul>
-    <div class="tab-content p-3 bg-dark">
+    <div class="tab-content p-3 bg-dark mb-3">
         <div class="tab-pane show active" id="details" role="tabpanel" aria-labelledby="details-tab">
 
-            @if( $item->exists )
-                {!! Form::model($item, ['method' => 'put', 'files' => true, 'route' => ['characters.update', $item->id]]) !!}
-            @else
-                {!! Form::open(['url' => Route('characters.store'), 'files' => true]) !!}
-            @endif
             {{ Form::myText('name') }}
             {{ Form::mySelect('type', $item->types, null, [
             'label' => __('Type'),
@@ -132,49 +140,65 @@
             {{ Form::myText('hit_points') }}
             <div class="row">
                 <div class="col">
-                    {{ Form::myText('speed') }}
+                    {{ Form::myText('speed', $item->speed, [
+                    'default' => 0
+                    ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('speed_burrow') }}
+                    {{ Form::myText('speed_burrow', $item->speed_burrow, [
+                    'default' => 0
+                    ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('speed_climb') }}
+                    {{ Form::myText('speed_climb', $item->speed_climb, [
+                    'default' => 0
+                    ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('speed_fly') }}
+                    {{ Form::myText('speed_fly', $item->speed_fly, [
+                    'default' => 0
+                    ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('speed_swim') }}
+                    {{ Form::myText('speed_swim', $item->speed_swim, [
+                    'default' => 0
+                    ]) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    {{ Form::myText('ability_str', null, [
+                    {{ Form::myText('ability_str', $item->ability_str, [
+                    'default' => 10,
                     'label' => __('STR')
                     ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('ability_dex', null, [
+                    {{ Form::myText('ability_dex', $item->ability_dex, [
+                    'default' => 10,
                     'label' => __('DEX')
                     ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('ability_con', null, [
+                    {{ Form::myText('ability_con', $item->ability_con, [
+                    'default' => 10,
                     'label' => __('CON')
                     ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('ability_int', null, [
+                    {{ Form::myText('ability_int', $item->ability_int, [
+                    'default' => 10,
                     'label' => __('INT')
                     ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('ability_wis', null, [
+                    {{ Form::myText('ability_wis', $item->ability_wis, [
+                    'default' => 10,
                     'label' => __('WIS')
                     ]) }}
                 </div>
                 <div class="col">
-                    {{ Form::myText('ability_cha', null, [
+                    {{ Form::myText('ability_cha', $item->ability_cha, [
+                    'default' => 10,
                     'label' => __('CHA')
                     ]) }}
                 </div>

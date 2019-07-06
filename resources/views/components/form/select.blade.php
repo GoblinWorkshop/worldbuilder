@@ -1,7 +1,6 @@
-<?php
-$help = isset($attributes['help']) ? $attributes['help'] : '';
-unset($attributes['help']);
-?>
+@if ($value === null && isset($attributes['default']))
+    {? $value = $attributes['default'] ?}
+@endif
 <div class="form-group">
     @if (!isset($attributes['label']) || $attributes['label'] !== false)
         {{ Form::label(isset($attributes['label']) ? $attributes['label'] : $name, null, ['class' => 'control-label']) }}

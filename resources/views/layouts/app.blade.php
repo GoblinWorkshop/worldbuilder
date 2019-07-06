@@ -15,6 +15,11 @@
     <div class="main-content">
         <div class="container-fluid">
             @yield('breadcrumbs')
+            @if(View::hasSection('options'))
+            <div class="float-right">
+                @yield('options')
+            </div>
+            @endif
             @yield('header')
         </div>
         <div id="app" class="pt-4">

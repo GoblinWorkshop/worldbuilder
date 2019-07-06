@@ -4,8 +4,11 @@
 @section('header')
     <h1>{{$item->name}}</h1>
 @endsection
-@section('sidebar')
+@section('options')
+    <a href="{{route('articles.index')}}" class="btn btn-secondary">{{__('Back')}}</a>
     <a href="{{route('articles.edit', $item->id)}}" class="btn btn-secondary">{{__('Edit')}}</a>
+@endsection
+@section('sidebar')
     @switch($item->type)
         @case('locations')
         @include('location.summary', ['location' => $item->location])

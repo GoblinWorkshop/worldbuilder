@@ -33,5 +33,8 @@ class BladeServiceProvider extends ServiceProvider
             'type' => 'password'
         ]]);
         FormBuilder::component('mySubmit', 'components.form.submit', ['value' => __('Save'), 'attributes' => []]);
+        Blade::extend(function($value) {
+            return preg_replace('/\{\?(.+)\?\}/', '<?php ${1} ?>', $value);
+        });
     }
 }

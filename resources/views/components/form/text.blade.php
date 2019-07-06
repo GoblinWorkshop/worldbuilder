@@ -1,4 +1,7 @@
 <div class="form-group">
+    @if ($value === null && isset($attributes['default']))
+        {? $value = $attributes['default'] ?}
+    @endif
     @if (!isset($attributes['label']) || $attributes['label'] !== false)
         {{ Form::label(isset($attributes['label']) ? $attributes['label'] : $name, null, ['class' => 'control-label']) }}
     @endif

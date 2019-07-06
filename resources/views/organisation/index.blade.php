@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('organisations.index'))
-@section('sidebar')
+@section('options')
     <a href="{{route('organisations.create')}}" class="btn btn-secondary">New</a>
-    <a href="{{route('characters.index')}}" class="btn btn-secondary">Characters</a><br />
 @endsection
 @section('content')
     <div class="row row-eq-height">

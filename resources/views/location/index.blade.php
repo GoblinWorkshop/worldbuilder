@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('locations.index'))
-@section('sidebar')
-    <a href="{{route('locations.create')}}" class="btn btn-secondary">New</a><br />
-@endsection
 @section('header')
     <h1>{{__('Locations')}}</h1>
     <p class="text-muted">
         {{ __('Locations can be anything from rooms to houses and from cities to continents. Each location can be stored hierarchically allowing you to zoom in or out as far as you like.') }}
     </p>
+@endsection
+@section('options')
+    <a href="{{route('locations.create')}}" class="btn btn-secondary">New</a><br />
 @endsection
 @section('content')
     <div class="row row-eq-height">

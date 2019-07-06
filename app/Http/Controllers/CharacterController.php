@@ -44,7 +44,8 @@ class CharacterController extends Controller
     /**
      * @todo make a private api request routing
      */
-    public function api_index() {
+    public function api_index()
+    {
         if (empty(request('q'))) {
             return response()->json([]);
         }
@@ -53,7 +54,7 @@ class CharacterController extends Controller
                 'id',
                 'name'
             ])
-            ->where('name', 'like', request('q') .'%')
+            ->where('name', 'like', request('q') . '%')
             ->limit(10)
             ->get();
         return response()->json($characters->toArray());
@@ -72,16 +73,17 @@ class CharacterController extends Controller
     /**
      * Generate a view for all relations of all characters
      */
-    public function relations() {
+    public function relations()
+    {
         $characters = Character::with('relations')
-        ->get();
+            ->get();
         $relations = []; // This must be doable through the collections...
         foreach ($characters as $character) {
             foreach ($character->relations as $relation) {
                 $relations[] = $relation;
             }
         }
-        return view ('character.relations', [
+        return view('character.relations', [
             'characters' => $characters,
             'relations' => $relations
         ]);
@@ -95,6 +97,9 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|min:1|max:255'
+        ]);
         $character = new Character($request->toArray());
         if (!empty($request->file('filename'))) {
             $character->filename = $request->file('filename')->store('public/characters');
@@ -114,6 +119,9 @@ class CharacterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|min:1|max:255'
+        ]);
         $character = Character::where('id', $id)
             ->first();
         $character->fill($request->all());
