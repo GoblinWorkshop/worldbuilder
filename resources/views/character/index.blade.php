@@ -21,7 +21,9 @@
                             {{$item->name}}
                         </a>
                     </div>
-                    {!!  $item->thumbnail(200, 200) !!}
+                    {!!  $item->thumbnail(500, 500, [
+                    'class' => 'card-img'
+                    ]) !!}
                     <div class="card-footer text-muted">
                         <a href="{{route('characters.edit', $item->id)}}" class="btn btn-secondary">Edit</a>
                         <a href="{{route('characters.show', $item->id)}}" class="btn btn-secondary">View</a>

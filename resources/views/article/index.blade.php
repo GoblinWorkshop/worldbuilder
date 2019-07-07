@@ -18,7 +18,9 @@
                         {{$item->name}}
                     </a>
                 </div>
-                {!!  $item->thumbnail(200, 200) !!}
+                {!!  $item->thumbnail(500, 500, [
+                'class' => 'card-img'
+                ]) !!}
                 <div class="card-body">
                     <p class="card-text">
                         {{ $item->short_description }}
