@@ -5,6 +5,12 @@
 @endsection
 @section('options')
     @if( $item->exists )
+        {!! Form::open(['id' => 'delete-form', 'class' => 'd-inline', 'onsubmit' => 'return confirm(\''.  __("Delete item?") .'\');', 'url' => Route('articles.destroy', $item->id)]) !!}
+        @method('DELETE')
+        {{ Form::mySubmit(__('Delete'), [
+        'class' => 'btn btn-text text-danger'
+        ]) }}
+        {!! Form::close() !!}
     <a href="{{route('characters.show', $item->id)}}" class="btn btn-secondary">{{__('Back')}}</a>
     @else
         <a href="{{route('characters.index')}}" class="btn btn-secondary">{{__('Back')}}</a>
