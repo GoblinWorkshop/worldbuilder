@@ -9,7 +9,7 @@
 @endsection
 @section('options')
     @if( $item->exists )
-        {!! Form::open(['id' => 'delete-form', 'class' => 'd-inline', 'onsubmit' => 'return confirm(\''.  __("Delete item?") .'\');', 'url' => Route('articles.destroy', $item->id)]) !!}
+        {!! Form::open(['id' => 'delete-form', 'class' => 'd-inline', 'onsubmit' => 'return confirm(\''.  __("Delete item?") .'\');', 'url' => Route('organisations.destroy', $item->id)]) !!}
         @method('DELETE')
         {{ Form::mySubmit(__('Delete'), [
         'class' => 'btn btn-text text-danger'

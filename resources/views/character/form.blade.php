@@ -5,7 +5,7 @@
 @endsection
 @section('options')
     @if( $item->exists )
-        {!! Form::open(['id' => 'delete-form', 'class' => 'd-inline', 'onsubmit' => 'return confirm(\''.  __("Delete item?") .'\');', 'url' => Route('articles.destroy', $item->id)]) !!}
+        {!! Form::open(['id' => 'delete-form', 'class' => 'd-inline', 'onsubmit' => 'return confirm(\''.  __("Delete item?") .'\');', 'url' => Route('characters.destroy', $item->id)]) !!}
         @method('DELETE')
         {{ Form::mySubmit(__('Delete'), [
         'class' => 'btn btn-text text-danger'
@@ -187,7 +187,7 @@
                 <div class="col">
                     {{ Form::myText('ability_con', $item->ability_con, [
                     'default' => 10,
-                    'label' => __('CON')
+                    'label' => 'CON'
                     ]) }}
                 </div>
                 <div class="col">

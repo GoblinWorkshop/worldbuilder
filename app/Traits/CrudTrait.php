@@ -157,7 +157,6 @@ trait CrudTrait
         $config = $this->getCrudConfig('delete');
         $item = app('App\\' . $model)::where('id', $id)
             ->first();
-
         preg_match('/\\\([a-z]+)Controller$/i', static::class, $matches);
         $indexAction = '/';
         if (isset($matches[1])) {
