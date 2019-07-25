@@ -30,6 +30,9 @@ trait CrudTrait
         'edit' => [
             'viewVar' => 'item',
             'relatedModels' => [] // 'viewVar' => 'App\Model'. E.g. 'parents' => 'App\Location'
+        ],
+        'delete' => [
+
         ]
     ];
 
@@ -45,7 +48,7 @@ trait CrudTrait
         if (!isset($matches[1]) || empty($matches[1])) {
             throw new \Exception('Invalid controller name.');
         }
-        $name = Inflector::singularize($matches[1]);
+        $name = $matches[1];
         return $name;
     }
 
@@ -140,5 +143,30 @@ trait CrudTrait
             $viewVars[$var] = app($relatedModel)::pluck('name', 'id');
         }
         return view(strtolower($model) . '.form', $viewVars);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $model = $this->getClassName();
+        $config = $this->getCrudConfig('delete');
+        $item = app('App\\' . $model)::where('id', $id)
+            ->first();
+
+        preg_match('/\\\([a-z]+)Controller$/i', static::class, $matches);
+        $indexAction = '/';
+        if (isset($matches[1])) {
+            $indexAction = '/'. strtolower(Inflector::pluralize($matches[1]));
+        }
+        if (empty($item)) {
+            return redirect($indexAction);
+        }
+        $item->delete();
+        return redirect($indexAction);
     }
 }
