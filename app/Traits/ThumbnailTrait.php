@@ -41,7 +41,12 @@ trait ThumbnailTrait
             }
             return '<img src="'. asset('/cache/'. $tmpFilename) .'"'. $attributesHtml .' />';
         }
-        $img = Image::make(storage_path('app') . '/'. $this->attributes['filename']);
+        try {
+            $img = Image::make(storage_path('app') . '/' . $this->attributes['filename']);
+        }
+        catch (\Exception $e) {
+            return '';
+        }
         if ($width > 0 && $height > 0) {
             $img->fit($width, $height);
         }
