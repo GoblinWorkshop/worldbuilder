@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('articles.form', $item))
-@section('background', $item->thumbnail(1000, 500, ['returnUrl' => true]))
 @section('header')
     @if( $item->exists )
         <h1>{{__('Edit :0', [$item->name])}}</h1>

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('characters.show', $item))
+@section('background', $item->thumbnail(1280, 720, ['returnUrl' => true]))
 @section('header')
     <h1>{{$item->name}} {{$item->type_label}}</h1>
 @endsection
