@@ -16,7 +16,7 @@
         <div class="container-fluid">
             @yield('breadcrumbs')
             @if(View::hasSection('options'))
-            <div class="float-right">
+            <div class="float-right options">
                 @yield('options')
             </div>
             @endif
@@ -29,7 +29,7 @@
                         @yield('content')
                     </div>
                     @hasSection('sidebar')
-                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
+                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 sidebar">
                             @yield('sidebar')
                         </div>
                     @endif

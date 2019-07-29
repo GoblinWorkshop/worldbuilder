@@ -17444,7 +17444,7 @@ body {
 }
 
 .main-content {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0, black 500px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0, black 720px);
 }
 
 .invalid-feedback {
@@ -17463,4 +17463,18 @@ blockquote {
 
 .image-style-side {
   max-width: 50%;
+}
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .main-background, .main-content {
+    background: none !important;
+  }
+
+  .navbar, footer, .breadcrumb, .options, .sidebar {
+    display: none !important;
+  }
 }

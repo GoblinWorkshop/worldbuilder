@@ -54,3 +54,16 @@ blockquote {
     @extend .img-fluid;
   }
 }
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+    .main-background, .main-content {
+        background: none !important;
+    }
+    .navbar, footer, .breadcrumb, .options, .sidebar {
+        display: none !important;
+    }
+}
