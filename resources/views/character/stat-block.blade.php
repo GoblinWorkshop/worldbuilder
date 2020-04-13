@@ -1,8 +1,9 @@
 <div class="stat-block">
     @if (!empty($character->filename))
     <div class="stat-block-figure">
-        {!!  $character->thumbnail(null, 300, [
-            ]) !!}
+        <a href="{{route('characters.show', $character->id)}}">
+        {!!  $character->thumbnail(null, 300, []) !!}
+        </a>
     </div>
     @endif
     <div class="stat-block-content">

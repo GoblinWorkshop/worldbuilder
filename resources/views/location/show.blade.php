@@ -31,11 +31,7 @@
                 </div>
               </div>
             </div>
-          </div>
-        </a><br/>
-        @if ($loop->last)
-            </p>
-        @endif
+        </div>
     @endforeach
 @endsection
 @section('content')
@@ -45,4 +41,12 @@
             {!! clean($item->article->content) !!}
         </article>
     @endif
+    <div class="row row-eq-height">
+        @foreach ($item->characters as $character)
+            <div class="col-md-6 col-lg-3 col-xl-2 mb-3">
+                @include('character.stat-block', ['character' => $character])
+            </div>
+            <br />
+        @endforeach
+    </div>
 @endsection

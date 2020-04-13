@@ -20,6 +20,10 @@ class Location extends Model
         'id', 'user_id', 'filename'
     ];
 
+    public function characters() {
+        return $this->belongsToMany('App\Character');
+    }
+
     public function getUrlAttribute($value) {
         return Storage::url($this->attributes['filename']);
     }
