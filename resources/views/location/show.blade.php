@@ -40,6 +40,8 @@
         <article>
             {!! clean($item->article->content) !!}
         </article>
+
+        {!! $item->thumbnail(1280, null, ['class' => 'img img-fluid']) !!}
     @endif
     <div class="row row-eq-height">
         @foreach ($item->characters as $character)

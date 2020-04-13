@@ -15,5 +15,7 @@
     @if ($item->article)
         <p>{{__('Article')}}: <a href="{{route('articles.show', $item->article->id)}}">{{$item->article->name}}</a></p>
         {!! clean($item->article->content) !!}
+
+        {!! $item->thumbnail(1280, null, ['class' => 'img img-fluid']) !!}
     @endif
 @endsection
