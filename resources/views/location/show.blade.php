@@ -27,7 +27,7 @@
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title"><a href="{{route('locations.show', $child->id)}}">{{$child->name}}</a></h5>
-                  <p class="card-text">{!! strip_tags($child->article->content) !!}</p>
+                  <p class="card-text">{!! str_limit(strip_tags($child->article->content), 200, '') !!}</p>
                 </div>
               </div>
             </div>
