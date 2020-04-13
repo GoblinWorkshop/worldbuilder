@@ -4,12 +4,12 @@
 var Relation = {
     _characterPositions: {},
     canvas: document.createElement('canvas'),
-    _centerX: 512,
-    _centerY: 512,
+    _centerX: 1024,
+    _centerY: 1024,
     settings: {
         element: document.body,
-        width: 1024,
-        height: 1024,
+        width: 2048,
+        height: 2048,
         /**
          * List with names
          */
@@ -20,8 +20,8 @@ var Relation = {
     init: function (settings) {
         settings = settings || {};
         this.settings = Object.assign(this.settings, settings);
-        this.canvas.width = this.settings.width + 150;
-        this.canvas.height = this.settings.height + 150;
+        this.canvas.width = this.settings.width + 200; // 100 for size of thumbs
+        this.canvas.height = this.settings.height + 200;
         this.render();
     },
 
