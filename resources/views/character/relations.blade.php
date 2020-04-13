@@ -32,6 +32,14 @@
     @endforeach
     <div id="relations"></div>
     <script>
+        document.getElementById('relations').addEventListener('click', function() {
+            Relation.init({
+                    element: document.getElementById('relations'),
+                    characters: {!! $characters->toJson() !!},
+                    relations: {!! json_encode($relations) !!},
+                }
+            );
+        });
         window.onload = function() {
             Relation.init({
                     element: document.getElementById('relations'),

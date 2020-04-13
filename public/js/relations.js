@@ -20,8 +20,8 @@ var Relation = {
     init: function (settings) {
         settings = settings || {};
         this.settings = Object.assign(this.settings, settings);
-        this.canvas.width = this.settings.width + 200; // 100 for size of thumbs
-        this.canvas.height = this.settings.height + 200;
+        this.canvas.width = this.settings.width + 100; // 100 for size of thumbs
+        this.canvas.height = this.settings.height + 100;
         this.render();
     },
 
