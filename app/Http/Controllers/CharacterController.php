@@ -144,6 +144,9 @@ class CharacterController extends Controller
         }
         $character->organisations()->sync($request->input('organisations'));
         $character->locations()->sync($request->input('locations'));
+        if ($request->get('article.body')) {
+            
+        }
         return redirect('/characters');
     }
 }

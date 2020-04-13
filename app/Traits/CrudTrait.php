@@ -17,7 +17,7 @@ trait CrudTrait
     public $defaultCrudConfig = [
         'index' => [
             'viewVar' => 'items',
-            'limit' => 12
+            'limit' => 24
         ],
         'create' => [
             'viewVar' => 'item',
