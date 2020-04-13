@@ -11,10 +11,28 @@
 @section('sidebar')
     @foreach ($item->children as $child)
         @if ($loop->first)
-            <p>
-                {{__('Locations found in this region')}}<br/>
+            <h3>
+                {{__('Locations found in this region')}}
+            </h3>
         @endif
-            <a href="{{route('locations.show', $child->id)}}">{{$child->name}}</a><br/>
+        <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <a href="{{route('locations.show', $child->id)}}">
+                    {!!  $child->thumbnail(200, 200, [
+                        'class' => 'card-img'
+                        ]) !!}
+                </a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{route('locations.show', $child->id)}}">{{$child->name}}</a></h5>
+                  <p class="card-text">{!! strip_tags($child->article->content) !!}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a><br/>
         @if ($loop->last)
             </p>
         @endif
