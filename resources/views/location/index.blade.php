@@ -19,7 +19,7 @@
                             {{$item->name}}
                         </a>
                     </div>
-                    {!!  $item->thumbnail(500, 500, [
+                    {!!  $item->thumbnail(400, 300, [
                     'class' => 'card-img'
                     ]) !!}
                     <div class="card-footer text-muted">

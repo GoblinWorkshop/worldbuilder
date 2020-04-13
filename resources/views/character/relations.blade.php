@@ -25,7 +25,7 @@
 @endsection
 @section('content')
     @foreach ($characters as $character)
-        {!! $character->thumbnail(100,100, [
+        {!! $character->thumbnail(90,120, [
         'class' => 'd-none',
         'id' => 'thumbnail-'. $character->id
         ]) !!}
