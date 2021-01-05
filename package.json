@@ -13,7 +13,7 @@
         "@ckeditor/ckeditor5-build-classic": "github:goblinworkshop/ckeditor",
         "@fortawesome/fontawesome-free": "^5.9.0",
         "@ttskch/select2-bootstrap4-theme": "^1.2.2",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "bootstrap": "^4.3.1",
         "cross-env": "^5.2",
         "jquery": "^3.4.1",
