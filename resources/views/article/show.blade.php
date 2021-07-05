@@ -19,5 +19,6 @@
     @endswitch
 @endsection
 @section('content')
+<div>{{ $item->created_at }}</div>
 <article>{!! clean($item->content) !!}</article>
 @endsection
